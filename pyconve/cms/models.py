@@ -22,18 +22,29 @@ class Presentation(models.Model):
     tutorial = models.BooleanField(default=False)
     duration = models.IntegerField(default=60)
     approved = models.BooleanField(default=False)
-    votes = models.IntegerField(editable=False)
+    votes = models.IntegerField(editable=False, default=0)
     requirements = models.TextField(blank=True, null=True)
+
+
+class RegistrationProfile(models.Model):
+    user = models.OneToOneField(User)
+    token = models.CharField(max_length=32)
+    encoded = models.CharField(max_length=32)
+    created = models.DateTimeField(auto_now_add=True)
+    consumed = models.DateTimeField(null=True, blank=True)
+    
 
 class UserProfile(models.Model):
     """
     Simplemente para tener una idea de la cantidad de 
     personas que vienen del interior
+
+    Los votos son para las ponencias, el workflow 
     """
     user = models.OneToOneField(User)
     state = models.ForeignKey(State, blank=True, null=True) 
     country = models.ForeignKey(Country)
-    email = models.EmailField()
+    available_votes = models.IntegerField(default=5)
 
 
 class SpeakerProfile(UserProfile):
