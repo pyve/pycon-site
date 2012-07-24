@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.shortcuts import render_to_response as Render, get_object_or_404 as get404
-from django.temaplate import RequestContext
+from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import simplejson

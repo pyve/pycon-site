@@ -33,8 +33,6 @@ header {
 }
 
 #caracas {
-    //width: 90%;
-    //margin: 20px auto;
     .item {
         background-color: @grayLight;
         background-position: 0% 70%; 
@@ -58,7 +56,32 @@ header {
     }
 }
 
+section {
+    margin-top: 30px;
+    padding-bottom: 30px;
+    &:nth-child(odd) {
+        background-color:@grayLighter;
+    }
+    &:nth-child(even) {
+        background-color:@white;
+    }
+    h1 {
+        margin: 20px 5px;
+    }
+    h2 {
+        margin: 10px 0;
+    }
+    table {
+        font-size: 13px;
+        border: 1px solid @grayLighter;
+        td {
+            border: 1px solid @grayLighter;
+        }
+    }
+}
+
 footer {
+    margin-top: 50px;
     padding: 50px 60px;
     background: @gray;
     #gradient > .radial(@gray, @grayDark);
