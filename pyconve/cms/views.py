@@ -27,12 +27,13 @@ def presentation_create(request):
         pdb.set_trace()
         if form.is_valid():
             p = Presentation()
-            p.speakers = form.cleaned_data['speakers']
             p.name = form.cleaned_data['name']
-            p.description = form.cleaned_nada['description']
+            p.description = form.cleaned_data['description']
             p.tutorial = form.cleaned_data['tutorial']
             p.duration = form.cleaned_data['duration']
             p.requirements = form.cleaned_data['requirements']
+            p.save()
+            p.speakers = form.cleaned_data['speakers']
             p.save()
             context = {'status_message': 'Charla creada'}
             return HttpResponse(simplejson.dumps(context))

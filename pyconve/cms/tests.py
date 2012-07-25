@@ -25,7 +25,7 @@ class PresentationTest(TestCase):
     def test__presentation_add(self):
         self.assertEqual(Presentation.objects.count(), 0)
         post_data = {
-            'speakers': [User.objects.get(id=1)],
+            'speakers': [self.user.id],
             'name': 'PyVE: Hacia una comunidad organizada',
             'description': 'Cómo PyVE se ha ido organizando hasta lograr montar el primer PyConVE',
             'tutorial': True,
