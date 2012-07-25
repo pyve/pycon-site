@@ -4,22 +4,27 @@ from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from cms.models import *
-from cms.forms import *
 
 def home(request):
 	context = {}
 	return Render('base.html', RequestContext(request, context))
 
 
+@login_required(login_url=settings.LOGIN_URL)
 def presentation_create(request):
     """
     GET: shows the presentation registration form
     POST: saves all the information
     """
+    from cms.forms import PresentationForm
     context = {}
     if request.method == 'POST':
         form = PresentationForm(request.POST)
+        import pdb
+        pdb.set_trace()
         if form.is_valid():
             p = Presentation()
             p.speakers = form.cleaned_data['speakers']
@@ -33,7 +38,7 @@ def presentation_create(request):
             return HttpResponse(simplejson.dumps(context))
         else:
             context = {'status_message': form.errors}
-            return simplejson.dumps(context)
+            return HttpResponse(status=400, content=simplejson.dumps(context))
     else:
         context = {'form': PresentationForm()}
     return Render('cms/presentation_create.html', RequestContext(request, context))
@@ -51,11 +56,13 @@ def presentation_view(request, presentation_id):
     return Render('cms/presentation_view.html', RequestContext(request, context))
 
 
+@login_required(login_url=settings.LOGIN_URL)
 def presentation_edit(request, presentation_id):
     """
     GET: show the presentation edit form
     POST: validates and saves all the information
     """
+    from cms.forms import PresentationForm
     context = {}
     p = get404(Presentation, id=presentation_id)
     if request.method == 'POST':
@@ -89,3 +96,13 @@ def presentation_edit(request, presentation_id):
     return Render('cms/presentation_edit.html', RequestContext(request, context))
 
 
+@login_required(login_url=settings.LOGIN_URL)
+def presentation_vote(request, presentation_id):
+    context = {}
+    if request.method == 'POST':
+        p = get404(Presentation, presentation_id)
+        p.votes += 1
+        p.save()
+        context = {'status_message': 'Voto agregado con éxito'}
+        return HttpResponse(simplejson.dumps(context))
+    return HttpResponse(status=405)

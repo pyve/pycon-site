@@ -5,10 +5,10 @@ from django import forms
 
 
 class PresentationForm(forms.Form):
-    sepakers = forms.MultipleChoiceField(queryset=User.objects.all())
+    speakers = forms.MultipleChoiceField(choices=User.objects.all())
     name = forms.CharField(max_length=128)
-    description = forms.CharField(widget=forms.TextArea)
+    description = forms.CharField(widget=forms.Textarea)
     tutorial = forms.BooleanField()
     duration = forms.DecimalField()
-    requirements = forms.CharField(widget=forms.TextArea)
+    requirements = forms.CharField(widget=forms.Textarea)
 
