@@ -23,8 +23,6 @@ def presentation_create(request):
     context = {}
     if request.method == 'POST':
         form = PresentationForm(request.POST)
-        import pdb
-        pdb.set_trace()
         if form.is_valid():
             p = Presentation()
             p.name = form.cleaned_data['name']
