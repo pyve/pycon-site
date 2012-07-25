@@ -12,8 +12,16 @@ header {
     #gradient > .radial(@grayDark, @black);
     color: @white;
     margin-bottom: 20px;
+    
     h1 {
         display: inline-block;
+        a {
+            color: @white;
+            &:hover {
+                color: @white;
+                text-decoration: none;
+            }
+        }
     }
     ul {
         display: inline-block;
@@ -86,4 +94,12 @@ footer {
     background: @gray;
     #gradient > .radial(@gray, @grayDark);
     color: @white;
+}
+
+.fixefd-top {
+  
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  margin-bottom: 0;
 }
