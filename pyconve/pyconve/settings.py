@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'south',
     'cms',
     'localization',
+    'profiles',
 )
 
 # A sample logging configuration. The only tangible logging

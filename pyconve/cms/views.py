@@ -4,81 +4,88 @@ from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
-from cms.utils import userprofile_create as create_profile
 from cms.models import *
-import base64
-import datetime
+from cms.forms import *
 
 def home(request):
 	context = {}
 	return Render('base.html', RequestContext(request, context))
 
-def profile_create(request):
+
+def presentation_create(request):
+    """
+    GET: shows the presentation registration form
+    POST: saves all the information
+    """
+    context = {}
     if request.method == 'POST':
-        form = RegistrationProfileForm(request.POST)
-        contenxt = {}
+        form = PresentationForm(request.POST)
         if form.is_valid():
-            user_email = form.cleaned_data['email']
-            passwd = form.cleaned_data['password']
-            user = User(email=user_email)
-            user.set_password(passwd)
-            user.save()
-            return HttpResponse(simplejson.dumps({'status_message': 'Profile created'}))
+            p = Presentation()
+            p.speakers = form.cleaned_data['speakers']
+            p.name = form.cleaned_data['name']
+            p.description = form.cleaned_nada['description']
+            p.tutorial = form.cleaned_data['tutorial']
+            p.duration = form.cleaned_data['duration']
+            p.requirements = form.cleaned_data['requirements']
+            p.save()
+            context = {'status_message': 'Charla creada'}
+            return HttpResponse(simplejson.dumps(context))
         else:
-            context = {'errors': form.errors}
+            context = {'status_message': form.errors}
+            return simplejson.dumps(context)
+    else:
+        context = {'form': PresentationForm()}
+    return Render('cms/presentation_create.html', RequestContext(request, context))
+
+
+def presentation_list(request):
+    presentations = Presentation.objects.all()
+    context = {'data': presentations}
+    return Render('cms/presentation_list.html', RequestContext(request, context))
+
+
+def presentation_view(request, presentation_id):
+    p = get404(Presentation, id=presentation_id)
+    context = {'data': p}
+    return Render('cms/presentation_view.html', RequestContext(request, context))
+
+
+def presentation_edit(request, presentation_id):
+    """
+    GET: show the presentation edit form
+    POST: validates and saves all the information
+    """
+    context = {}
+    p = get404(Presentation, id=presentation_id)
+    if request.method == 'POST':
+        if form.is_valid():
+            if request.user in p.speakers.all():
+                p.speakers = form.cleaned_data['speakers']
+                p.name = form.cleaned_data['name']
+                p.description = form.cleaned_nada['description']
+                p.tutorial = form.cleaned_data['tutorial']
+                p.duration = form.cleaned_data['duration']
+                p.requirements = form.cleaned_data['requirements']
+                p.save()
+                context = {'status_message': 'Cambios realizados'}
+                return HttpResponse(simplejson.dumps(context))
+            else:
+                context = {'status_message': 'Debes ser uno de los ponentes para editar la charla'}
+                return HttpResponse(status=403, content=context)
+        else:
+            context = {'status_message': form.errors}
             return HttpResponse(status=400, content=simplejson.dumps(context))
     else:
-        form = RegistrationProfileForm()
-    context = {'form': form}
-    return Render('cms/profile_create.html', RequestContext(request, context))
-
-
-def profile_activate(request, token):
-    try:
-        regprofile = RegistrationProfile.objects.get(encoded=token)
-        email, token = base64.b64decode(token).split('|')
-        if (not regprofile.user.is_active) and email == regprofile.user.email and token == regprofile.token:
-            regprofile.user.is_active = True
-            regprofile.user.save()
-            regprofile.consumed = datetime.datetime.now()
-            regprofile.save()
-            context = {'status_message': 'Usuario activado'}
-            return HttpResponse(simplejson.dumps(context))
-    except:
-        pass
-
-    context = {'status_message': 'Token inválido o ya consumido'}
-    return HttpResponse(status=400, content=simplejson.dumps(context)) 
-
-
-def profile_edit(request):
-    try:
-        request.user.userprofile
-    except:
-        create_profile(request.user)
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST)
-        if form.is_valid():
-            user = request.user
-            user.first_name = form.cleaned_data['first_name']
-            user.last_name = form.cleaned_data['last_name']
-            user.username = form.cleaned_data['email']
-            user.save()
-            user.userprofile.country = form.cleaned_data['country']
-            if form.cleaned_data['country'].lower() == "venezuela":
-                user.userprofile.state = form.cleaned_data['state']
-            user.userprofile.save()
-            return HttpResponseRedirect(reverse('profile-myprofile'))
-        else:
-            return HttpResponse(status=400, content=simplejson.dumps({'status_message': form.errors}))
-    else:
         data = {
-            'first_name': request.user.first_name,
-            'last_name': request.user.last_name,
-            'email': request.user.email,
-            'country': request.user.userprofile.country,
-            'state': request.user.userprofile.state,
+            'speakers': p.speakers.all(),
+            'name': p.name,
+            'description': p.description(),
+            'tutorial': p.tutorial,
+            'duration': p.duration,
+            'requirements': p.requirements,
         }
-        form = UserProfileForm(data)
-    context = {'form': form}
-    return Render('cms/profile_edit.html', RequestContext(request, context))
+        context = {'data', data}
+    return Render('cms/presentation_edit.html', RequestContext(request, context))
+
+
