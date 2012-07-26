@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.forms import forms
+from django import forms
 from localization.models import *
 from profiles.models import *
 
@@ -14,7 +14,7 @@ class RegistrationProfileForm(forms.Form):
         password2 = self.cleaned_data['confirm_password']
 
         if password != password2:
-            raise forms.ValidationError('Las contraseñas no coinciden')
+            raise forms.ValidationError('Las contrasenas no coinciden')
         
         return password
     
@@ -23,12 +23,12 @@ class UserProfileForm(forms.Form):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
     email = forms.EmailField()
-    country = forms.MultipleChoiceField(queryset=Country.objects.all())
-    state = forms.MultipleChoiceField(queryset=State.objects.none())
+    #country = forms.MultipleChoiceField(queryset=Country.objects.all())
+    #state = forms.MultipleChoiceField(queryset=State.objects.none())
 
 
 class SpeakerProfileForm(forms.Form):
     """
-    El avatar se podría gestionar con gravatar
+    El avatar se podria gestionar con gravatar
     """
-    about = forms.CharField(widget=forms.TextArea)
+    #about = forms.CharField(widget=forms.TextArea)

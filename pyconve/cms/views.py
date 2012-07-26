@@ -7,10 +7,12 @@ from django.utils import simplejson
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from cms.models import *
+from cms.forms import PresentationForm
 
 def home(request):
-	context = {}
-	return Render('base.html', RequestContext(request, context))
+    from profiles.forms import UserProfileForm
+    context = {'form': PresentationForm(), 'formUserProfile': UserProfileForm()}
+    return Render('base.html', RequestContext(request, context))
 
 
 @login_required(login_url=settings.LOGIN_URL)
