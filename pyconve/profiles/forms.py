@@ -1,3 +1,4 @@
+#coding=utf-8
 from django.contrib.auth.models import User
 from django import forms
 from localization.models import *
@@ -23,12 +24,23 @@ class UserProfileForm(forms.Form):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
     email = forms.EmailField()
-    #country = forms.MultipleChoiceField(queryset=Country.objects.all())
-    #state = forms.MultipleChoiceField(queryset=State.objects.none())
+    country = forms.MultipleChoiceField(queryset=Country.objects.all())
+    state = forms.MultipleChoiceField(queryset=State.objects.none())
+    password = forms.CharField(max_length=16, widget=forms.PasswordInput)
+    confirm_password = forms.CharField(max_length=16, widget=forms.PasswordInput)
 
+    def clean_password(self):
+        pwd = self.cleaned_data['password']
+        pwd2 = self.cleaned_data['confirm_password']
+        
+        if pwd1 != pwd2:
+            raise forms.ValidateError('Las claves no contraseñas no coinciden')
 
-class SpeakerProfileForm(forms.Form):
+        return pwd
+
+class SpeakerProfileForm(forms.ModelForm):
     """
     El avatar se podria gestionar con gravatar
     """
-    #about = forms.CharField(widget=forms.TextArea)
+    class Meta:
+        model = SpeakerProfile

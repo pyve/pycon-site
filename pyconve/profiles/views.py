@@ -1,1 +1,80 @@
-# Create your views here.
+#coding=utf-8
+from django.contrib.auth.models import User
+from django.contrib.auth.views import logout as auth_logout
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.template import RequestContext
+from django.utils import simplejson
+from profiles.models import *
+import hashlib
+import base64
+import datetime
+
+
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect(reverse('home'))
+
+
+def profile_create(request):
+    """
+    GET: show profile creation form
+    POST: validates and stores data
+    """
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            user = User()
+            user.first_name = form.cleaned_data['user_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.username = form.cleaned_data['email']
+            user.email = form.cleaned_date['email']
+            user.set_password(form.cleaned_data['password'])
+            up = UserProfile(user=user)
+            up.country = form.cleaned_data['country']
+            up.state = form.cleaned_data['state']
+            user.save()
+            up.save()
+            context = {'status_message': 'Perfil creado'}
+            return HttpResponse(simplejson.dumps(context))
+        else:
+            context = {'status_message': form.errors}
+            return HttpResponse(status=400, content=simplejson.dumps(context))
+    form = UserProfileForm()
+    context = {'form': form}
+    return Render('profiles/create_profile.html', RequestContext(request, context))
+
+
+def profile_edit(request):
+    """
+    GET: show profile edit form with current data
+    POST: validate and store new data
+    """
+    profile = get404(UserProfile, user=request.user)
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            user.first_name = form.cleaned_data['user_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.email = form.cleaned_date['email']
+            user.username = form.cleaned_date['email']
+            user.set_password(form.cleaned_data['password'])
+            up = UserProfile(user=user)
+            up.country = form.cleaned_data['country']
+            up.state = form.cleaned_data['state']
+            user.save()
+            up.save()
+            context = {'status_message': 'Perfil actualizado'}
+            return HttpResponse(simplejson.dumps(context))
+        else:
+            context = {'status_message': form.errors}
+            return HttpResponse(status=400, content=simplejson.dumps(context))
+    data = {
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+        'email': request.user.email,
+        'country': profile.country,
+        'state': profile.state,
+    }
+    context = {'data': data}
+    return Render('profiles/profile_create.html', RequestContext(request, context))

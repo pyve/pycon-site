@@ -30,6 +30,8 @@ class SpeakerProfile(UserProfile):
     Se agrega una biografía y una fotito al UserProfile
     para los ponentes, a manera de que la audiencia pueda
     tener una idea de a quienes van a ver
+
+    El avatar podría agarrarse de gravatar
     """
     picture = models.ImageField(upload_to='avatars', blank=True, null=True)
     about = models.TextField()
