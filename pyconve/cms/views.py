@@ -11,7 +11,8 @@ from cms.forms import PresentationForm
 
 def home(request):
     from profiles.forms import UserProfileForm
-    context = {'form': PresentationForm(), 'formUserProfile': UserProfileForm()}
+    #context = {'form': PresentationForm(), 'formUserProfile': UserProfileForm()}
+    context = {}
     return Render('base.html', RequestContext(request, context))
 
 
