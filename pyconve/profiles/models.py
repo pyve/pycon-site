@@ -17,22 +17,16 @@ class UserProfile(models.Model):
     Simplemente para tener una idea de la cantidad de 
     personas que vienen del interior
 
-    Los votos son para las ponencias, el workflow 
+    Los votos son para las ponencias, el workflow aun no se define
+
+    El ponente es un usuario también, cualquier usuario puede proponer una
+    charla.
     """
     user = models.OneToOneField(User)
     state = models.ForeignKey(State, blank=True, null=True) 
     country = models.ForeignKey(Country)
     available_votes = models.IntegerField(default=5)
-
-
-class SpeakerProfile(UserProfile):
-    """
-    Se agrega una biografía y una fotito al UserProfile
-    para los ponentes, a manera de que la audiencia pueda
-    tener una idea de a quienes van a ver
-
-    El avatar podría agarrarse de gravatar
-    """
     picture = models.ImageField(upload_to='avatars', blank=True, null=True)
-    about = models.TextField()
-
+    about = models.TextField(blank=True, null=True)
+    
+import profiles.signals

@@ -37,10 +37,3 @@ class UserProfileForm(forms.Form):
             raise forms.ValidateError('Las claves no contraseñas no coinciden')
 
         return pwd
-
-class SpeakerProfileForm(forms.ModelForm):
-    """
-    El avatar se podria gestionar con gravatar
-    """
-    class Meta:
-        model = SpeakerProfile

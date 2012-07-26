@@ -30,9 +30,10 @@ def profile_create(request):
             user.username = form.cleaned_data['email']
             user.email = form.cleaned_date['email']
             user.set_password(form.cleaned_data['password'])
-            up = UserProfile(user=user)
+            up = UserProfile.objects.get(user=user)
             up.country = form.cleaned_data['country']
             up.state = form.cleaned_data['state']
+            up.about = form.cleaned_data['about']
             user.save()
             up.save()
             context = {'status_message': 'Perfil creado'}
@@ -59,9 +60,10 @@ def profile_edit(request):
             user.email = form.cleaned_date['email']
             user.username = form.cleaned_date['email']
             user.set_password(form.cleaned_data['password'])
-            up = UserProfile(user=user)
+            up = UserProfile.objects.get(user=user)
             up.country = form.cleaned_data['country']
             up.state = form.cleaned_data['state']
+            up.about = form.cleaned_data['about']
             user.save()
             up.save()
             context = {'status_message': 'Perfil actualizado'}
@@ -78,3 +80,18 @@ def profile_edit(request):
     }
     context = {'data': data}
     return Render('profiles/profile_create.html', RequestContext(request, context))
+
+
+def profile_activate(request, encoded):
+    try:
+        regprofile = RegistrationProfile.objects.get(encoded=encoded)
+        email, token = base64.b64decode(encoded).split('|')
+        if (not regprofile.user.is_active) and email == regprofile.user.email and token == regprofile.token:
+            regprofile.user.is_active = True
+            regprofile.user.save()
+            context = {'status_message': 'Perfil activate'}
+            return Render('profiles/profile_activate.html', RequestContext(request, context))
+    except:
+        pass
+    context = {'status_message': 'Usuario ya activado o token inválido'}
+    return HttpResponse(status=403, content=simplejson.dumps(context))
