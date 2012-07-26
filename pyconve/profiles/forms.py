@@ -25,7 +25,7 @@ class UserProfileForm(forms.Form):
     last_name = forms.CharField(max_length=30)
     email = forms.EmailField()
     country = forms.ModelChoiceField(queryset=Country.objects.all())
-    state = forms.ModelChoiceField(queryse=State.objects.none())
+    state = forms.ModelChoiceField(queryset=State.objects.none())
     password = forms.CharField(max_length=16, widget=forms.PasswordInput)
     confirm_password = forms.CharField(max_length=16, widget=forms.PasswordInput)
 
