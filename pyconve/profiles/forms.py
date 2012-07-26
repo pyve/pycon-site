@@ -24,8 +24,8 @@ class UserProfileForm(forms.Form):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
     email = forms.EmailField()
-    country = forms.MultipleChoiceField(queryset=Country.objects.all())
-    state = forms.MultipleChoiceField(queryset=State.objects.none())
+    country = forms.ModelChoiceField(queryset=Country.objects.all())
+    state = forms.ModelChoiceField(queryse=State.objects.none())
     password = forms.CharField(max_length=16, widget=forms.PasswordInput)
     confirm_password = forms.CharField(max_length=16, widget=forms.PasswordInput)
 
