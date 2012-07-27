@@ -41,6 +41,7 @@ class Sponsor(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField()
     logo = models.ImageField(upload_to='logos', null=True, blank=True)
+    website = models.CharField(max_length=64, null=True, blank=True)
     sponsorship_type = models.CharField(max_length=2, null=True, blank=True, choices=SPONSORSHIP_CHOICES)
 
 import profiles.signals
