@@ -157,3 +157,12 @@ LOGGING = {
         },
     }
 }
+
+# email configuration
+EMAIL_HOST = 'mail.zava.com.ve'
+EMAIL_PORT = 26
+DEFAULT_FROM_EMAIL = 'no-reply@zava.com.ve'
+EMAIL_HOST_USER = 'no-reply@zava.com.ve'
+EMAIL_HOST_PASSWORD = '%8X5DTW#22o}'
+
+SITE_NAME = '127.0.0.1:8000'

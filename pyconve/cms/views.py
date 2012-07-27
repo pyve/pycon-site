@@ -94,7 +94,7 @@ def presentation_edit(request, presentation_id):
             'duration': p.duration,
             'requirements': p.requirements,
         }
-        context = {'data', data}
+        context = {'data': data}
     return Render('cms/presentation_edit.html', RequestContext(request, context))
 
 
