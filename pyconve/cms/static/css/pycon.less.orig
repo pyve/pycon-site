@@ -1,5 +1,7 @@
 @import 'bootstrap/bootstrap.less';
 @import 'bootstrap/responsive.less';
+@import 'roundabout.less';
+
 
 * {
     font-family: 'Metrophobic', sans-serif;
@@ -129,10 +131,133 @@ footer {
     color: @white;
 }
 
+<<<<<<< HEAD
+#pycon-table {
+    margin:0;
+    padding: 4px;
+    width: 663px;
+    font: 13px Arial, Helvetica, sans-serif;
+    color:#747474;
+    background-color:@grayDark;
+}
+
+
+#pycon-header {
+    margin:0;
+    padding: 14px 0 0 24px;
+    width: 641px;
+    height: 55px;
+    color:#FFF;
+    font-size:13px;
+    background: @grayDark;
+}
+
+.pycon-bold {
+    font: bold 22px Arial, Helvetica, sans-serif;
+    
+}
+
+#pycon-top {
+    margin:0;
+    padding: 0;
+    width: 663px;
+    height: 46px;
+    border-top: 2px solid #e4ebf8;
+    background: #e4ebf8;
+    border-bottom: 1px solid #B3C1DB;
+}
+
+.pycon-top-cell {
+    float:left;
+    padding: 15px 0 0 0;
+    text-align:center;
+    width:185px;
+    height: 31px;
+    border-right: 1px solid #ced9ec;
+
+    color:@black;
+    font: 13px Arial, Helvetica, sans-serif;
+}
+
+#pycon-middle {
+    margin:0;
+    padding: 0;
+    width: 665px;
+    background: #f6f6f6;
+}
+
+.pycon-left {
+    float:left;
+    margin:0;
+    padding: 30px 0 10 24px;
+    width: 80px;
+    text-align: left;
+    height: 39px;
+    border-right: 1px solid #ced9ec;
+    border-bottom: 1px solid #b3c1db;
+    color:@gray;
+    font: 13px Arial, Helvetica, sans-serif;
+    background: #e4ebf8;
+}
+
+
+
+.pycon-right {
+    float:left;
+    margin:0;
+    padding: 7px 4 10 4;
+    width: 177px;
+    text-align:center;
+    height: 62px;
+    border-right: 1px solid #ced9ec;
+    border-bottom: 1px solid #b3c1db;
+    a{
+        color:@white;
+    }
+}
+
+#pycon-bottom {
+    clear:both;
+    margin:0;
+    padding: 0;
+    width: 662px;
+    height: 48px;
+    border-top: 2px solid #FFF;
+    background: #e4e3e3;  
+}
+
+
+.pycon-bottom-cell {
+    float:left;
+    padding: 15px 0 0 0;
+    text-align:center;
+    width:111px;
+    height: 33px;
+    border-right: 1px solid #ced9ec;
+    color:#070707;
+    font: 13px Arial, Helvetica, sans-serif;
+}
+
+
+
+#pycon-footer {
+    font-size: 10px;
+    color:#8a8a8a;
+    margin:0;
+    padding: 8px 0 8px 12px;
+    width: 651px;
+    background: #f6f6f6 ;  
+}
+.event{
+
+    background-color: lighten(spin(@greenEvent, 5), 5%);
+    color:@yellowEvent;
+=======
 .fixefd-top {
   
   right: 0;
   left: 0;
   z-index: 1030;
   margin-bottom: 0;
+>>>>>>> 9469134ff26c6c3012a640f0004f607270ba24c7
 }

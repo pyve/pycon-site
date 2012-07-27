@@ -116,7 +116,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+#    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
@@ -124,7 +124,10 @@ INSTALLED_APPS = (
     'south',
     'cms',
     'localization',
+    'profiles',
 )
+
+LOGIN_URL = '/profiles/login'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -154,3 +157,12 @@ LOGGING = {
         },
     }
 }
+
+# email configuration
+EMAIL_HOST = 'mail.zava.com.ve'
+EMAIL_PORT = 26
+DEFAULT_FROM_EMAIL = 'no-reply@zava.com.ve'
+EMAIL_HOST_USER = 'no-reply@zava.com.ve'
+EMAIL_HOST_PASSWORD = '%8X5DTW#22o}'
+
+SITE_NAME = '127.0.0.1:8000'

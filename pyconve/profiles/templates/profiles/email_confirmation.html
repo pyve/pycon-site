@@ -1,0 +1,21 @@
+{% load i18n %}
+{% block subject %}
+	{% blocktrans with fullname=user.get_full_name %}
+		Confirmación de correo para {{ fullname }}
+	{% endblocktrans %}
+{% endblock %}
+{% block ogtitle %}
+	{% blocktrans with fullname=user.get_full_name %}
+		Confirmación de correo para {{ fullname }}
+	{% endblocktrans %}
+{% endblock %}
+{% block content %}
+{% url profile-activate token=user.registrationprofile.encoded as theurl %}
+	{% blocktrans with firstname=user.first_name %}
+		<p>Hola, {{ firstname }}</p>
+		<p>Te has suscrito al portal del PyConVE 2012, gracias por tu intención de asistir.</a>
+		<p>Para validar que no eres un bot y, si lo eres, poner a prueba tu IA, debes confirmar que esta dirección de email te pertenece.</p>
+		<p>Para ello, simplemente, debes hacer click en el siguiente enlace :</p> 
+		<p><a href="{{site}}{{ theurl }}">{{site}}{{ theurl }}</a></p>
+	{% endblocktrans %}
+{% endblock %}

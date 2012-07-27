@@ -4,81 +4,110 @@ from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
-from cms.utils import userprofile_create as create_profile
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from cms.models import *
-import base64
-import datetime
+from cms.forms import PresentationForm
 
 def home(request):
-	context = {}
-	return Render('base.html', RequestContext(request, context))
+    from profiles.forms import UserProfileForm
+    context = {'form': PresentationForm(), 'formUserProfile': UserProfileForm()}
+    #context = {}
+    return Render('base.html', RequestContext(request, context))
 
-def profile_create(request):
+
+@login_required(login_url=settings.LOGIN_URL)
+def presentation_create(request):
+    """
+    GET: shows the presentation registration form
+    POST: saves all the information
+    """
+    from cms.forms import PresentationForm
+    context = {}
     if request.method == 'POST':
-        form = RegistrationProfileForm(request.POST)
-        contenxt = {}
+        form = PresentationForm(request.POST)
         if form.is_valid():
-            user_email = form.cleaned_data['email']
-            passwd = form.cleaned_data['password']
-            user = User(email=user_email)
-            user.set_password(passwd)
-            user.save()
-            return HttpResponse(simplejson.dumps({'status_message': 'Profile created'}))
+            p = Presentation()
+            p.name = form.cleaned_data['name']
+            p.description = form.cleaned_data['description']
+            p.tutorial = form.cleaned_data['tutorial']
+            p.duration = form.cleaned_data['duration']
+            p.requirements = form.cleaned_data['requirements']
+            p.save()
+            p.speakers = form.cleaned_data['speakers']
+            p.save()
+            context = {'status_message': 'Charla creada'}
+            return HttpResponse(simplejson.dumps(context))
         else:
-            context = {'errors': form.errors}
+            context = {'status_message': form.errors}
             return HttpResponse(status=400, content=simplejson.dumps(context))
     else:
-        form = RegistrationProfileForm()
-    context = {'form': form}
-    return Render('cms/profile_create.html', RequestContext(request, context))
+        context = {'form': PresentationForm()}
+    return Render('cms/presentation_create.html', RequestContext(request, context))
 
 
-def profile_activate(request, token):
-    try:
-        regprofile = RegistrationProfile.objects.get(encoded=token)
-        email, token = base64.b64decode(token).split('|')
-        if (not regprofile.user.is_active) and email == regprofile.user.email and token == regprofile.token:
-            regprofile.user.is_active = True
-            regprofile.user.save()
-            regprofile.consumed = datetime.datetime.now()
-            regprofile.save()
-            context = {'status_message': 'Usuario activado'}
-            return HttpResponse(simplejson.dumps(context))
-    except:
-        pass
-
-    context = {'status_message': 'Token inválido o ya consumido'}
-    return HttpResponse(status=400, content=simplejson.dumps(context)) 
+def presentation_list(request):
+    presentations = Presentation.objects.all()
+    context = {'data': presentations}
+    return Render('cms/presentation_list.html', RequestContext(request, context))
 
 
-def profile_edit(request):
-    try:
-        request.user.userprofile
-    except:
-        create_profile(request.user)
+def presentation_view(request, presentation_id):
+    p = get404(Presentation, id=presentation_id)
+    context = {'data': p}
+    return Render('cms/presentation_view.html', RequestContext(request, context))
+
+
+@login_required(login_url=settings.LOGIN_URL)
+def presentation_edit(request, presentation_id):
+    """
+    GET: show the presentation edit form
+    POST: validates and saves all the information
+    """
+    from cms.forms import PresentationForm
+    context = {}
+    p = get404(Presentation, id=presentation_id)
     if request.method == 'POST':
-        form = UserProfileForm(request.POST)
         if form.is_valid():
-            user = request.user
-            user.first_name = form.cleaned_data['first_name']
-            user.last_name = form.cleaned_data['last_name']
-            user.username = form.cleaned_data['email']
-            user.save()
-            user.userprofile.country = form.cleaned_data['country']
-            if form.cleaned_data['country'].lower() == "venezuela":
-                user.userprofile.state = form.cleaned_data['state']
-            user.userprofile.save()
-            return HttpResponseRedirect(reverse('profile-myprofile'))
+            if request.user in p.speakers.all():
+                p.speakers = form.cleaned_data['speakers']
+                p.name = form.cleaned_data['name']
+                p.description = form.cleaned_nada['description']
+                p.tutorial = form.cleaned_data['tutorial']
+                p.duration = form.cleaned_data['duration']
+                p.requirements = form.cleaned_data['requirements']
+                p.save()
+                context = {'status_message': 'Cambios realizados'}
+                return HttpResponse(simplejson.dumps(context))
+            else:
+                context = {'status_message': 'Debes ser uno de los ponentes para editar la charla'}
+                return HttpResponse(status=403, content=context)
         else:
-            return HttpResponse(status=400, content=simplejson.dumps({'status_message': form.errors}))
+            context = {'status_message': form.errors}
+            return HttpResponse(status=400, content=simplejson.dumps(context))
     else:
         data = {
-            'first_name': request.user.first_name,
-            'last_name': request.user.last_name,
-            'email': request.user.email,
-            'country': request.user.userprofile.country,
-            'state': request.user.userprofile.state,
+            'speakers': p.speakers.all(),
+            'name': p.name,
+            'description': p.description(),
+            'tutorial': p.tutorial,
+            'duration': p.duration,
+            'requirements': p.requirements,
         }
-        form = UserProfileForm(data)
-    context = {'form': form}
-    return Render('cms/profile_edit.html', RequestContext(request, context))
+        context = {'data': data}
+    return Render('cms/presentation_edit.html', RequestContext(request, context))
+
+
+@login_required(login_url=settings.LOGIN_URL)
+def presentation_vote(request, presentation_id):
+    context = {}
+    if request.method == 'POST':
+        import pdb
+        pdb.set_trace()
+        p = get404(Presentation, id=presentation_id)
+        pdb.set_trace()
+        p.votes += 1
+        p.save()
+        context = {'status_message': 'Voto agregado con éxito'}
+        return HttpResponse(simplejson.dumps(context))
+    return HttpResponse(status=405)
