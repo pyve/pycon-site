@@ -72,14 +72,15 @@
                     <p>PyCon es el encuentro anual más grande de desarrolladores del lenguaje de programación Python que se realiza en diferentes países del mundo. Estos encuentros son desarrollado y llevados a cabo por las comunidades Python de cada país integrante. PyCon permiten el acercamiento entre los diferentes desarrolladores con el propósito de compartir nuevas ideas, propuestas y experiencias a través de debates, charlas, tutoriales y mesas de trabajo.</p>
                 </div>
                 
-                <div class="span5" style="border:1px dashed gray; height:150px; margin-left:18px;">
-                    una imagen
+                <div class="span5" style=" height:148px; margin-left:18px;">
+                    <img src="{{ STATIC_URL }}img/pycon_alemania.jpg" border="1px dashed gray" >
+                    <p> Foto referencial tomada de PyCon Alemania</p>
                 </div>
-                <div class="span7">
+                <div class="span11">
                     <h2>Tutorial Days</h2>
                     <p>Dentro de las actividades desarrolladas en el PyCon, y como parte de integración con la comunidad desarrolladora del lenguaje de programación Python, se llevan a cabo pequeñas jornadas de mesas de trabajo o tutoriales con el fin de propagar nuevos conocimientos sobre este poderoso lenguaje. Estos tutoriales tienen una duración de 3 hrs aproximandamente y está dirigido a un número limitado de participantes.</p>
                 </div>
-                <div class="span7">
+                <div class="span10">
                     <h2>Conference Days</h2>
                     <p> Las charlas y conferencias son llevados a cabo por personas voluntarias pertenecientes a la comunidad Python y que pretenden difundir conocimientos adquiridos, mostrar el uso de nuevas tecnologías o simplemente promover y fomentar el uso de este lenguaje de programación. En estas conferencias es fácil encontrarse con charlas informativas e inspiradoras que permiten involucrarse con mayor entusiasmo en el desarrollo de nuevos proyectos en Python y facilitan establecer contactos y amigos entre los distintos asistentes. Por lo general, estas charlas suelen tener una duración de 40 minutos.</p>
                 </div>
@@ -139,10 +140,10 @@
                             <div class="span11 form-attendees">
                                 <div class="span1">&nbsp;</div>
                                 <div class="span8">
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal" action="" method="post">
                                       <fieldset>
                                         <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
-                                        <div class="errors"></div>
+                                        <div class="errors"></div></br>
                                         {% for field in formUserProfile %}
                                         <div class="control-group">
                                             <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
@@ -165,10 +166,10 @@
                                 <div class="span11 form-speakers" style="display:none;">
                                     <div class="span1">&nbsp;</div>
                                     <div class="span8">
-                                        <form class="form-horizontal">
+                                        <form class="form-horizontal" method="post">
                                           <fieldset>
                                             <legend>Registro de ponencias al PyCon Venezuela 2012</legend>
-                                            <div class="errors"></div>
+                                            <div class="errors"></div></br>
                                             {% for field in form %}
                                             <div class="control-group">
                                                 <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
@@ -200,13 +201,16 @@
                     <h1>Patrocinantes</h1>
                 </div>
                 <div class="span12">
-                    <p>
-
-                        Zava (ya hacer y hostear la página web nos da derecho)<br>
-                        Vauxoo (no lo coloques aún, debo hablar con ellos esta semana)<br>
-                        UCAB<br>
-                        More TBA if they come...<br>
-                    </p>
+                    <div class="span1">
+                        <img src="{{ STATIC_URL }}img/zava_logo.png" border="1px dashed gray" >
+                    </div>
+                    <div class="span1">
+                        <img src="{{ STATIC_URL }}img/ucab_logo.jpg" border="1px dashed gray" >
+                    </div>
+                    <div class="span1">
+                        Vauxoo
+                    </div>
+                    
                 </div>
             </section>
         </div>
