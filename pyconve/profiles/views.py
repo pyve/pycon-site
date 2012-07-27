@@ -1,4 +1,5 @@
 #coding=utf-8
+from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
 from django.contrib.auth.views import logout as auth_logout
 from django.http import HttpResponse, HttpResponseRedirect
@@ -39,11 +40,13 @@ def profile_create(request):
             if form.cleaned_data.has_key('about'):
                 up.about = form.cleaned_data['about']
             up.save()
-            context = {'status_message': 'Perfil creado'}
-            return HttpResponse(simplejson.dumps(context))
+            context = {'status_message': 'Perfil creado', 'formUserProfile': form}
+            return render_to_response('base.html',RequestContext(request, context))
+            #return HttpResponse(simplejson.dumps(context))
         else:
-            context = {'status_message': form.errors}
-            return HttpResponse(status=400, content=simplejson.dumps(context))
+            context = {'status_message': form.errors, 'formUserProfile': form}
+            return render_to_response('base.html',RequestContext(request, context))
+            #return HttpResponse(status=400, content=simplejson.dumps(context))
     form = UserProfileForm()
     context = {'form': form}
     return Render('profiles/create_profile.html', RequestContext(request, context))
