@@ -24,9 +24,23 @@ class UserProfile(models.Model):
     """
     user = models.OneToOneField(User)
     state = models.ForeignKey(State, blank=True, null=True) 
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country, blank=True, null=True)
     available_votes = models.IntegerField(default=5)
     picture = models.ImageField(upload_to='avatars', blank=True, null=True)
     about = models.TextField(blank=True, null=True)
     
+
+SPONSORSHIP_CHOICES = (
+    ('p', 'Plata'),
+    ('g', 'Gold'),
+    ('b', 'Bronce'),
+    ('pl', 'Platino'),
+)
+
+class Sponsor(models.Model):
+    name = models.CharField(max_length=64)
+    description = models.TextField()
+    logo = models.ImageField(upload_to='logos', null=True, blank=True)
+    sponsorship_type = models.CharField(max_length=2, null=True, blank=True, choices=SPONSORSHIP_CHOICES)
+
 import profiles.signals

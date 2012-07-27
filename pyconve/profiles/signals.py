@@ -9,5 +9,5 @@ def new_user_signal(sender, instance, created, *args, **kwargs):
         utils.create_userprofile(user)
         if user.email:
             utils.create_regprofile(user)
-            utils.self_confirmation_email(user)
+            utils.send_confirmation_email(user)
 post_save.connect(new_user_signal, sender=User)

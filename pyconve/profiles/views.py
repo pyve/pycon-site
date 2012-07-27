@@ -21,20 +21,23 @@ def profile_create(request):
     GET: show profile creation form
     POST: validates and stores data
     """
+    from profiles.forms import UserProfileForm
     if request.method == 'POST':
         form = UserProfileForm(request.POST)
         if form.is_valid():
             user = User()
-            user.first_name = form.cleaned_data['user_name']
+            user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.username = form.cleaned_data['email']
-            user.email = form.cleaned_date['email']
+            user.email = form.cleaned_data['email']
             user.set_password(form.cleaned_data['password'])
+            user.save()
             up = UserProfile.objects.get(user=user)
             up.country = form.cleaned_data['country']
-            up.state = form.cleaned_data['state']
-            up.about = form.cleaned_data['about']
-            user.save()
+            if form.cleaned_data.has_key('state'):
+                up.state = form.cleaned_data['state']
+            if form.cleaned_data.has_key('about'):
+                up.about = form.cleaned_data['about']
             up.save()
             context = {'status_message': 'Perfil creado'}
             return HttpResponse(simplejson.dumps(context))
@@ -51,6 +54,7 @@ def profile_edit(request):
     GET: show profile edit form with current data
     POST: validate and store new data
     """
+    from profiles.forms import UserProfileForm
     profile = get404(UserProfile, user=request.user)
     if request.method == 'POST':
         form = UserProfileForm(request.POST)
