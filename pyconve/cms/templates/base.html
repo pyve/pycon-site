@@ -111,7 +111,7 @@
                     <p>
                         Ven y acompañanos en las actividades que estaremos realizando para compartir experiencias y conocimientos relacionados con Python.</p>
 
-                        <p>Aquí encontraras todas las Ponencias, Conferencias, Campamentos, que se realizarán en la primera edicián del PyCon Venezuela.</p>
+                        <p>Aquí encontraras todas las Ponencias, Conferencias, Campamentos, que se realizarán en la primera edición del PyCon Venezuela.</p>
 
                         <p>Nota: El detalle, biografía y fecha/hora asignada se completan automáticamente a medida que los autores actualizan y confirman dichos datos.</p>
 
@@ -195,14 +195,29 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-transition.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-tooltip.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-popover.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.roundabout.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.event.drag-2.2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.event.drop-2.2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.roundabout-shapes.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/pycon.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.easing.js"></script>
+        <script>
+           $(document).ready(function() {
+              $('#ra').roundabout({
+                autoplay: true,
+                autoplayDuration: 4000,
+                autoplayPauseOnHover: true,
+                enableDrag: true
+              });
+           });
+        </script>
+
+ <!--        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.easing.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.event.drag.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.event.drop.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout2.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ba-bbq.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.smooth-scroll.js"></script>
-   <!--     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout.js"></script>-->
+       <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout.js"></script>-->
 
     </body>
 </html>

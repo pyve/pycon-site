@@ -1,100 +1,24 @@
+.roundabout-holder {
+   list-style: none;
+   padding: 0px 0px 0px 0px;
+   margin: 0px 0px 0px 0px;
 
-#feature {
-	background: none;
-	position: absolute;
-	margin: 120px 0px 0px 0px;
-	z-index: 10;
-	padding: 300px 450px 40px 0px;
-	text-align:center;
+   height: 350px;
+   width: 290px;
 }
-
-#feature .page {
-	padding-top: 42px;
-	padding-bottom: 42px;
-	margin-top: 0;
-	margin-bottom: 0;
-	img{
-		width:120px;height:120px;
-		margin-top:20px;
-		border:1px @white solid;
-	}
+.roundabout-moveable-item {
+   height: 350px;
+   width: 290px;
+   cursor: pointer;
+   background-color:#407360;// #6DA69D;
+   border: 0px solid @gray;
+   color:@white;
+   box-shadow:0 4px 32px rgba(0, 0, 0, 0.4);
+   img{
+      width:110px;height:100px;margin: 20px 0px 0px 0px;border: 1px solid @white;
+   }
+   p{text-align:center;}
 }
-
-	#feature p {
-		margin: 0;
-		font-size: 1.3em;
-		width: 40%;
-		line-height: 1.5;
-	}
-	
-	#like-this {
-		position: absolute;
-		display: block;
-		top: 190px;
-		left: 310px;
-		opacity: 0;
-		-webkit-transition: all 0.1s ease-in-out;
-		-moz-transition: all 0.1s ease-in-out;
-		-ms-transition: all 0.1s ease-in-out;
-		-o-transition: all 0.1s ease-in-out;
-		transition: all 0.1s ease-in-out;
-	}
-		#feature:hover #like-this {
-			opacity: 1;
-		}
-	
-	#sample-roundabout {
-		width: 30%;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		float: right;
-		height: 20em;
-		position: absolute;
-		top: -68px;
-		right: 110px;
-		opacity: 0;
-	}
-		#sample-roundabout li {
-			background-color: lighten(spin(@greenEvent, 5), 5%);
-			height: 20em;
-			width: 18em;
-			box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
-			cursor: pointer;
-		}
-			#sample-roundabout li.roundabout-in-focus {
-				cursor: auto;
-			}
-		#sample-roundabout li .wrapper {
-			padding: 1em;
-		}
-			#sample-roundabout .wrapper h2 {
-				font-size: 1.75em;
-				line-height: 1.1;
-				margin-bottom: 0;
-				padding-bottom: 8px;
-				text-align: center;
-				color: #fff !important;
-			}
-			#sample-roundabout .wrapper h3 {
-				font-size: 1.5em;
-				line-height: 1.1;
-				padding-top: 0;
-				margin-top: 0;
-				text-align: center;
-				color: #fff !important;
-			}
-			#sample-roundabout .wrapper p {
-				margin-top: 4em;
-				font-size: 1em;
-				text-align: center;
-				width: auto;
-				color: #fff !important;
-			}
-				#sample-roundabout .img-example .wrapper p {
-					margin-top: 2em;
-				}
-				#sample-roundabout .img-example .wrapper img {
-					height: 8em;
-					width: 6em;
-				}
+.roundabout-in-focus {
+   cursor: auto;
+}
