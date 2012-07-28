@@ -11,11 +11,13 @@ import hashlib
 import base64
 import datetime
 
-
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect(reverse('home'))
 
+def profile_success(request):
+    context = {'success_message': 'El perfil ha sido creado correctamente. Por favor revise su correo para validar el registro.'}
+    return render_to_response('base.html',RequestContext(request, context))
 
 def profile_create(request):
     """
@@ -35,22 +37,20 @@ def profile_create(request):
             user.save()
             up = UserProfile.objects.get(user=user)
             up.country = form.cleaned_data['country']
-            if form.cleaned_data.has_key('state'):
-                up.state = form.cleaned_data['state']
-            if form.cleaned_data.has_key('about'):
-                up.about = form.cleaned_data['about']
+            #if form.cleaned_data.has_key('state'):
+            #TODO: por que lo tendrias desactivado? En el forms no lo tienes como required=False y el models si tienes null=True
+            up.state = form.cleaned_data['state']
+            #TODO: de donde sale este about
+            #if form.cleaned_data.has_key('about'):
+            #    up.about = form.cleaned_data['about']
             up.save()
-            context = {'status_message': 'Perfil creado', 'formUserProfile': form}
-            return render_to_response('base.html',RequestContext(request, context))
+            return HttpResponseRedirect(reverse('success-profile'))
             #return HttpResponse(simplejson.dumps(context))
         else:
-            context = {'status_message': form.errors, 'formUserProfile': form}
+            context = {'formUserProfile': form}
             return render_to_response('base.html',RequestContext(request, context))
             #return HttpResponse(status=400, content=simplejson.dumps(context))
-    form = UserProfileForm()
-    context = {'form': form}
-    return Render('profiles/create_profile.html', RequestContext(request, context))
-
+    return HttpResponseRedirect('/#inscriptions')
 
 def profile_edit(request):
     """
@@ -87,7 +87,6 @@ def profile_edit(request):
     }
     context = {'data': data}
     return Render('profiles/profile_create.html', RequestContext(request, context))
-
 
 def profile_activate(request, encoded):
     try:
