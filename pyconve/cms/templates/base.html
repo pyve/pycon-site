@@ -131,16 +131,21 @@
                 </div>
                 <div class="span7 well">
                     {% if success_message %}
-                    <div class="alert alert-success" id='success'>
+                    <div class="alert alert-success">
                         {{success_message}}
                     </div>
                     <script type='text/javascript'>
                         $.smoothScroll({
-                            scrollTarget: '#success'
+                            scrollTarget: '#inscriptions'
                           });
                     </script>
                     {% else %}
                     {% if formUserProfile.errors %}
+                    <script type='text/javascript'>
+                        $.smoothScroll({
+                            scrollTarget: '#inscriptions'
+                          });
+                    </script>
                     <ul style="list-style-type:none;">
                     {% for error in formUserProfile.errors.values %}
                     <li class="alert alert-error">{{error}}</li>
@@ -203,7 +208,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout2.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ba-bbq.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.smooth-scroll.js"></script>
-        <!--script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout.js"></script-->
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout.js"></script>
 
     </body>
 </html>
