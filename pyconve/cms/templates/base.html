@@ -130,7 +130,24 @@
                     <p>Si deseas participar como ponente, próximamente estaremos proporcionando el formulario de inscripción para las ponencias, charlas, tutoriales o mesas de trabajo.</p>
                 </div>
                 <div class="span7 well">
-                    <form class="form-horizontal" action="profiles/create/" method="post">
+                    {% if success_message %}
+                    <div class="alert alert-success" id='success'>
+                        {{success_message}}
+                    </div>
+                    <script type='text/javascript'>
+                        $.smoothScroll({
+                            scrollTarget: '#success'
+                          });
+                    </script>
+                    {% else %}
+                    {% if formUserProfile.errors %}
+                    <ul style="list-style-type:none;">
+                    {% for error in formUserProfile.errors.values %}
+                    <li class="alert alert-error">{{error}}</li>
+                    {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <form class="form-horizontal" action="{% url create-profile %}" method="post">
                         {% csrf_token %}
                         <fieldset>
                             <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
@@ -149,6 +166,7 @@
                             </div>
                         </fieldset>
                     </form>
+                    {% endif %}
                 </div>
                 
             </section>
@@ -185,7 +203,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout2.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ba-bbq.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.smooth-scroll.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/roundabout.js"></script>
+        <!--script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout.js"></script-->
 
     </body>
 </html>
