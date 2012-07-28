@@ -89,12 +89,12 @@
                 </div>
                 <div class="span7">
                     <h2>PyCon Venezuela</h2>
-                    <p>Este año 2012, Venezuela tiene el privilegio de contar con el primer encuentro PyCon desarrollado por la comunidad Python de este país. Esta primera actividad ofcial tendrá como sede  las instalaciones de la <i>Universidad Católica Andres Bello</b> en Caracas, en el auditorio Hermano Lanz y será desarrollada los días 1, 2 y 3 de noviembre del presente año. En el encuentro participaran diferentes ponentes nacionales e internacionales que darán a conococer cuáles han sido sus experiencias, intercambiar conocimientos, innovaciones y detallar cuán poderoso puede ser el uso de este lenguaje de programación para el desarrollo de nuestros proyectos.</p>
+                    <p>Este año 2012, Venezuela tiene el privilegio de contar con el primer encuentro PyCon desarrollado por la comunidad Python de este país. Esta primera actividad ofcial tendrá como sede  las instalaciones de la <i>Universidad Católica Andres Bello</i> en Caracas, en el auditorio Hermano Lanz y será desarrollada los días 1, 2 y 3 de noviembre del presente año. En el encuentro participaran diferentes ponentes nacionales e internacionales que darán a conococer cuáles han sido sus experiencias, intercambiar conocimientos, innovaciones y detallar cuán poderoso puede ser el uso de este lenguaje de programación para el desarrollo de nuestros proyectos.</p>
                     <p>La entrada a este evento será gratuita y sólo deberás registrarte en esta página en la sección de <b><a href="#inscriptions">Inscripciones</a></b>. Si deseas compartir tus experiencias o deseas participar en la realización de una charla deberás ingresar la información referente en la misma sección.</p>
                 </div>
-                <div class="span5">
+                <!--div class="span5">
                     <iframe width="425" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=&amp;aq=0&amp;oq=universidad+catolica+andres+bello&amp;sll=10.464655,-66.976229&amp;sspn=0.005455,0.009645&amp;t=m&amp;ie=UTF8&amp;ll=10.464475,-66.976519&amp;spn=0.01055,0.018239&amp;z=15&amp;output=embed"></iframe>
-                </div>
+                </div-->
             </section>
             <section class="row">
                 <div class="span12" id="activities">
@@ -129,28 +129,27 @@
 
                     <p>Si deseas participar como ponente, próximamente estaremos proporcionando el formulario de inscripción para las ponencias, charlas, tutoriales o mesas de trabajo.</p>
                 </div>
-                
-                    <div class="span7 well">
-                        <form class="form-horizontal" action="profiles/create/" method="post">
-                            {% csrf_token %}
-                            <fieldset>
-                                <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
-                                <div class="errors"></div></br>
-                                {% for field in formUserProfile %}
-                                <div class="control-group">
-                                    <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
-                                    <div class="controls">
-                                        {{ field }}
-                                        <p class="help-inline">{{ field.help_text }}</p>
-                                    </div>
+                <div class="span7 well">
+                    <form class="form-horizontal" action="profiles/create/" method="post">
+                        {% csrf_token %}
+                        <fieldset>
+                            <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
+                            <div class="errors"></div></br>
+                            {% for field in formUserProfile %}
+                            <div class="control-group">
+                                <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+                                <div class="controls">
+                                    {{ field }}
+                                    <p class="help-inline">{{ field.help_text }}</p>
                                 </div>
-                                {% endfor %}
-                                <div class="form-actions" align="right">
-                                    <button type="submit" class="btn btn-success btn-large">Registrarme</button>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
+                            </div>
+                            {% endfor %}
+                            <div class="form-actions" align="right">
+                                <button type="submit" class="btn btn-success btn-large">Registrarme</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
                 
             </section>
             <section class="row">
@@ -175,7 +174,6 @@
             El footer
         </footer>
 
-        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/effects.core.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-carousel.js"></script>
