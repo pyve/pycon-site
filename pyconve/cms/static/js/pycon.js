@@ -1,6 +1,8 @@
 var PYCON = {
     init: function () {
         //console.log("hello world!")
+        //
+        $('[rel=popover]').popover()
         
         $(".show-form-speakers").click(function() {
         	$(".form-attendees").fadeOut(200, function(){

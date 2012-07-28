@@ -28,6 +28,12 @@ class UserProfile(models.Model):
     available_votes = models.IntegerField(default=5)
     picture = models.ImageField(upload_to='avatars', blank=True, null=True)
     about = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.user
+
+    def __unicode__(self):
+        return u'%s'%self.user
     
 
 SPONSORSHIP_CHOICES = (
@@ -41,7 +47,14 @@ class Sponsor(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField()
     logo = models.ImageField(upload_to='logos', null=True, blank=True)
+    #TODO: modificar website models.URLField
     website = models.CharField(max_length=64, null=True, blank=True)
     sponsorship_type = models.CharField(max_length=2, null=True, blank=True, choices=SPONSORSHIP_CHOICES)
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return u'%s'%self.name
 
 import profiles.signals
