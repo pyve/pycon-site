@@ -1,3 +1,4 @@
+{% load pycon_helpers %}
 <html>
     <head>
         <title>Pycon Venezuela 2012</title>
@@ -14,7 +15,7 @@
                 <li><a href="#activities">Actividades</a></li>
                 <li><a href="#inscriptions">Inscripciones</a></li>
                 <li><a href="#sponsors">Patrocinantes</a></li>
-                <li><a href="">Iniciar Sesión</a></li>
+                <!--li><a href="">Iniciar Sesión</a></li-->
             </ul>
         </header>
         
@@ -25,14 +26,17 @@
                         <!-- Carousel items -->
                         <div class="carousel-inner">
                             <div class="active item"></div>
-                            <div class="item"></div>
-                            <div class="item"></div>
+                            <div class="item">
+                                <div>
+                                    <h1>El encuentro más grande de desarrolladores Python</h1>
+                                </div>
+                            </div>
                             <div class="item"></div>
                             <div class="item"></div>
                         </div>
                         <!-- Carousel nav -->
-                        <a class="carousel-control left" href="#caracas" data-slide="prev">&lsaquo;</a>
-                        <a class="carousel-control right" href="#caracas" data-slide="next">&rsaquo;</a>
+                        <span class="carousel-control left" href="#caracas" data-slide="prev">&lsaquo;</span>
+                        <span class="carousel-control right" href="#caracas" data-slide="next">&rsaquo;</span>
                     </div>
                 </div>
             </div>
@@ -64,67 +68,60 @@
             
             <section class="row">
                 <div class="span12" id="about-it">
-                    <h1>Acerca De</h1>
+                    <h1>Acerca de...</h1>
                 </div>
                 
                 <div class="span7">
-                    <h2>¿Que es el PyCon?</h2>
-                    <p>PyCon es el encuentro anual más grande de desarrolladores del lenguaje de programación Python que se realiza en diferentes países del mundo. Estos encuentros son desarrollado y llevados a cabo por las comunidades Python de cada país integrante. PyCon permiten el acercamiento entre los diferentes desarrolladores con el propósito de compartir nuevas ideas, propuestas y experiencias a través de debates, charlas, tutoriales y mesas de trabajo.</p>
+                    <h2>¿Qué es el PyCon?</h2>
+                    <p>PyCon es el encuentro anual más grande de desarrolladores del lenguaje de programación Python que se realiza en diferentes países del mundo. Estos encuentros son desarrollados y llevados a cabo por las comunidades Python de cada país integrante. PyCon permite el acercamiento entre los diferentes desarrolladores con el propósito de compartir nuevas ideas, propuestas y experiencias a través de debates, charlas, tutoriales y mesas de trabajo.</p>
                 </div>
                 
-                <div class="span5" style=" height:148px; margin-left:18px;">
+                <div class="span5 pycongermany">
                     <img src="{{ STATIC_URL }}img/pycon_alemania.jpg" border="1px dashed gray" >
-                    <p> Foto referencial tomada de PyCon Alemania</p>
+                    <p> Foto PyCon Alemania 2012</p>
                 </div>
                 <div class="span11">
-                    <h2>Tutorial Days</h2>
-                    <p>Dentro de las actividades desarrolladas en el PyCon, y como parte de integración con la comunidad desarrolladora del lenguaje de programación Python, se llevan a cabo pequeñas jornadas de mesas de trabajo o tutoriales con el fin de propagar nuevos conocimientos sobre este poderoso lenguaje. Estos tutoriales tienen una duración de 3 hrs aproximandamente y está dirigido a un número limitado de participantes.</p>
+                    <h2>Mesas de Trabajo y Tutoriales</h2>
+                    <p>Dentro de las actividades desarrolladas en el PyCon, y como parte de integración con la comunidad desarrolladora del lenguaje de programación Python, se llevan a cabo pequeñas jornadas de mesas de trabajo o tutoriales con el fin de propagar nuevos conocimientos sobre este poderoso lenguaje. Estos tutoriales tienen una duración de 3 horas aproximádamente y está dirigido a un número limitado de participantes.</p>
                 </div>
                 <div class="span10">
-                    <h2>Conference Days</h2>
-                    <p> Las charlas y conferencias son llevados a cabo por personas voluntarias pertenecientes a la comunidad Python y que pretenden difundir conocimientos adquiridos, mostrar el uso de nuevas tecnologías o simplemente promover y fomentar el uso de este lenguaje de programación. En estas conferencias es fácil encontrarse con charlas informativas e inspiradoras que permiten involucrarse con mayor entusiasmo en el desarrollo de nuevos proyectos en Python y facilitan establecer contactos y amigos entre los distintos asistentes. Por lo general, estas charlas suelen tener una duración de 40 minutos.</p>
+                    <h2>Conferencias</h2>
+                    <p>Las charlas y conferencias son llevadas a cabo por personas voluntarias pertenecientes a la comunidad Python y que pretenden difundir conocimientos adquiridos, mostrar el uso de nuevas tecnologías o simplemente promover y fomentar el uso de este lenguaje de programación.<br> En estas conferencias es fácil encontrarse con charlas informativas e inspiradoras que permiten involucrarse con mayor entusiasmo en el desarrollo de nuevos proyectos en Python y facilitan establecer contactos y amigos entre los distintos asistentes. Por lo general, estas charlas suelen tener una duración de 40 minutos.</p>
                 </div>
                 <div class="span7">
                     <h2>PyCon Venezuela</h2>
-                    <p>Este año 2012, Venezuela tiene el privilegio de contar con el primer encuentro PyCon desarrollado por la comunidad Python de este país. Esta primera actividad ofcial tendrá como sede  las instalaciones de la Universidad Católica Andres Bello, en Caracas, en el auditorio Hermano Lanz y será desarrollada los días 1, 2 y 3 de noviembre del presente año. En el encuentro participaran diferentes ponentes nacionales e internacionales que darán a conococer cuáles han sido sus experiencias, intercambiar conocimientos, innovaciones y detallar cuán poderoso puede ser el uso de este lenguaje de programación para el desarrollo de nuestros proyectos.</p>
+                    <p>Este año 2012, Venezuela tiene el privilegio de contar con el primer encuentro PyCon desarrollado por la comunidad Python de este país. Esta primera actividad ofcial tendrá como sede  las instalaciones de la <i>Universidad Católica Andres Bello</i> en Caracas, en el auditorio Hermano Lanz y será desarrollada los días 1, 2 y 3 de noviembre del presente año. En el encuentro participaran diferentes ponentes nacionales e internacionales que darán a conococer cuáles han sido sus experiencias, intercambiar conocimientos, innovaciones y detallar cuán poderoso puede ser el uso de este lenguaje de programación para el desarrollo de nuestros proyectos.</p>
                     <p>La entrada a este evento será gratuita y sólo deberás registrarte en esta página en la sección de <b><a href="#inscriptions">Inscripciones</a></b>. Si deseas compartir tus experiencias o deseas participar en la realización de una charla deberás ingresar la información referente en la misma sección.</p>
                 </div>
-                <div class="span5">
+                <!--div class="span5">
                     <iframe width="425" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=&amp;aq=0&amp;oq=universidad+catolica+andres+bello&amp;sll=10.464655,-66.976229&amp;sspn=0.005455,0.009645&amp;t=m&amp;ie=UTF8&amp;ll=10.464475,-66.976519&amp;spn=0.01055,0.018239&amp;z=15&amp;output=embed"></iframe>
-                </div>
+                </div-->
             </section>
             <section class="row">
                 <div class="span12" id="activities">
                     <h1>Actividades</h1>
                 </div>
-                <div class="span7">
-                <b style="color:red">(Este no es el diseño de la tabla)</b>
-                {% include '_schedule.html' %}
+                <div class="span7" style="height:450px;">
+                <h3>Del 1 al 3 de Noviembre del 2012</h3>
+                <br><br>
+                {% include '_activities.html' %}
                 </div>
                 <div class="span5">
-                    <h2>Otra info de la planificación</h2>
+                    <h2>Actividades PyCon</h2>
                     <p>
-                        Nota: El listado de actividades es provisorio, próximamente será actualizado con las charlas plenarias, paneles y talleres
+                        Ven y acompañanos en las actividades que estaremos realizando para compartir experiencias y conocimientos relacionados con Python.</p>
 
-                        ¡Quedate conectado con PyConAr para más info y novedades!.
+                        <p>Aquí encontraras todas las Ponencias, Conferencias, Campamentos, que se realizarán en la primera edición del PyCon Venezuela.</p>
 
-                        Nota: El detalle, biografía y fecha/hora asignada se completan automáticamente a medida que los autores actualizan y confirman dichos datos.
+                        <p>Nota: El detalle, biografía y fecha/hora asignada se completan automáticamente a medida que los autores actualizan y confirman dichos datos.</p>
 
-                        No activities accepted yet
                     </p>
-                    <h2>Otra sección...</h2>
+                    <h2>Galería de actividades en otros PyCon a nivel mundial</h2>
                     <p>
-                        Nota: El listado de actividades es provisorio, próximamente será actualizado con las charlas plenarias, paneles y talleres
-
-                        ¡Quedate conectado con PyConAr para más info y novedades!.
-
-                        Nota: El detalle, biografía y fecha/hora asignada se completan automáticamente a medida que los autores actualizan y confirman dichos datos.
-
-                        No activities accepted yet
                     </p>
                 </div>
             </section>
-            <section class="row ">
+            <section class="row-fluid">
                 <div class="span12" id="inscriptions">
                     <h1>Inscripciones</h1>
                 </div>
@@ -133,28 +130,50 @@
 
                     <p>Si deseas participar como ponente, próximamente estaremos proporcionando el formulario de inscripción para las ponencias, charlas, tutoriales o mesas de trabajo.</p>
                 </div>
-                
-                    <div class="span7 well">
-                        <form class="form-horizontal" action="profiles/create/" method="post">
-                            {% csrf_token %}
-                            <fieldset>
-                                <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
-                                <div class="errors"></div></br>
-                                {% for field in formUserProfile %}
-                                <div class="control-group">
-                                    <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
-                                    <div class="controls">
-                                        {{ field }}
-                                        <p class="help-inline">{{ field.help_text }}</p>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                <div class="form-actions" align="right">
-                                    <button type="submit" class="btn-register-attenders btn btn-success btn-large">Registrarme</button>
-                                </div>
-                            </fieldset>
-                        </form>
+                <div class="span7 well">
+                    {% if success_message %}
+                    <div class="alert alert-success">
+                        {{success_message}}
                     </div>
+                    <script type='text/javascript'>
+                        $.smoothScroll({
+                            scrollTarget: '#inscriptions'
+                          });
+                    </script>
+                    {% else %}
+                    {% if formUserProfile.errors %}
+                    <script type='text/javascript'>
+                        $.smoothScroll({
+                            scrollTarget: '#inscriptions'
+                          });
+                    </script>
+                    <ul style="list-style-type:none;">
+                    {% for error in formUserProfile.errors.values %}
+                    <li class="alert alert-error">{{error}}</li>
+                    {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <form class="form-horizontal" action="{% url create-profile %}" method="post">
+                        {% csrf_token %}
+                        <fieldset>
+                            <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
+                            <div class="errors"></div></br>
+                            {% for field in formUserProfile %}
+                            <div class="control-group">
+                                <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+                                <div class="controls">
+                                    {{ field }}
+                                    <p class="help-inline">{{ field.help_text }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <div class="form-actions" align="right">
+                                <button type="submit" class="btn btn-success btn-large">Registrarme</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                    {% endif %}
+                </div>
                 
             </section>
             <section class="row">
@@ -162,27 +181,43 @@
                     <h1>Patrocinantes</h1>
                 </div>
                 <div class="span12">
-                    <div class="span1">
-                        <img src="{{ STATIC_URL }}img/zava_logo.png" border="1px dashed gray" >
-                    </div>
-                    <div class="span1">
-                        <img src="{{ STATIC_URL }}img/ucab_logo.jpg" border="1px dashed gray" >
-                    </div>
-                    <div class="span1">
-                        Vauxoo
-                    </div>
-                    
+                    {% show_sponsors %}
                 </div>
             </section>
         </div>
         <footer>
-            El footer
+            <center>PyCon Venezuela 2012 &#174;.  Powered by <a href="http://zava.com.ve">ZAVA</a> &copy;</center>
         </footer>
 
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery-1.7.2.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/effects.core.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-carousel.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-transition.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-tooltip.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-popover.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.roundabout.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.event.drag-2.2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.event.drop-2.2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.roundabout-shapes.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/pycon.js"></script>
+        <script>
+           $(document).ready(function() {
+              $('#ra').roundabout({
+                autoplay: true,
+                autoplayDuration: 4000,
+                autoplayPauseOnHover: true,
+                enableDrag: true
+              });
+           });
+        </script>
+
+ <!--        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.easing.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.event.drag.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.event.drop.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ba-bbq.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.smooth-scroll.js"></script>
+       <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout.js"></script>-->
+
     </body>
 </html>

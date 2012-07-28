@@ -28,6 +28,11 @@ class UserProfileForm(forms.Form):
     def clean_password(self):
         
         if self.data['password'] != self.data['confirm_password']:
-            raise forms.ValidationError('Las claves no contraseñas no coinciden')
+            raise forms.ValidationError('Las contraseñas ingresadas no coinciden. Por favor verifique.')
 
         return self.cleaned_data['password']
+
+    def clean_email(self):
+        if User.objects.filter(email=self.data['email']):
+            raise forms.ValidationError('Este email ya se encuentra registrado. Por favor verifique.')
+        return self.data['email']

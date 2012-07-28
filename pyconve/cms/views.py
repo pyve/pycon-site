@@ -12,9 +12,7 @@ from cms.forms import PresentationForm
 def home(request):
     from profiles.forms import UserProfileForm
     context = {'form': PresentationForm(), 'formUserProfile': UserProfileForm()}
-    #context = {}
     return Render('base.html', RequestContext(request, context))
-
 
 @login_required(login_url=settings.LOGIN_URL)
 def presentation_create(request):

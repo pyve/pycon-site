@@ -1,0 +1,7 @@
+{% for sponsor in sponsors %}
+<div class="span1">
+    <a href="{{sponsor.website}}">
+        <img src="{{sponsor.logo.url}}" alt="{{sponsor.name}}"  rel="popover" data-content="{{sponsor.description}}" data-original-title="{{sponsor.name}}">
+    </a>
+</div>
+{% endfor %}

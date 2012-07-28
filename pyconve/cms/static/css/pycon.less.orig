@@ -2,12 +2,9 @@
 @import 'bootstrap/responsive.less';
 @import 'roundabout.less';
 
+
 * {
     font-family: 'Metrophobic', sans-serif;
-}
-
-.carousel-control {
-    cursor: pointer;
 }
 
 header {
@@ -43,10 +40,6 @@ header {
             }
         }
     }
-}
-
-p {
-    text-align: justify;
 }
 
 #caracas {
@@ -138,14 +131,7 @@ footer {
     color: @white;
 }
 
-.fixefd-top {
-  
-  right: 0;
-  left: 0;
-  z-index: 1030;
-  margin-bottom: 0;
-}
-
+<<<<<<< HEAD
 #pycon-table {
     margin:0;
     padding: 4px;
@@ -266,4 +252,12 @@ footer {
 
     background-color: lighten(spin(@greenEvent, 5), 5%);
     color:@yellowEvent;
+=======
+.fixefd-top {
+  
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  margin-bottom: 0;
+>>>>>>> 9469134ff26c6c3012a640f0004f607270ba24c7
 }
