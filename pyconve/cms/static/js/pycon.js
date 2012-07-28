@@ -23,8 +23,15 @@ var PYCON = {
 			$("#f-attendees").addClass("active");
 		});
     }
+
+    
 }
 
 $(document).on("ready", function () {
-   PYCON.init();
+	$(".btn-register-attenders").on("click",(function () {
+    	alert("hola");
+    	return false;
+    }));
+
+   	PYCON.init();
 });
