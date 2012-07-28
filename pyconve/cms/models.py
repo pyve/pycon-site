@@ -24,3 +24,9 @@ class Presentation(models.Model):
     approved = models.BooleanField(default=False)
     votes = models.IntegerField(editable=False, default=0)
     requirements = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
