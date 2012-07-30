@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.utils import simplejson
 from profiles.models import *
+from cms.models import Presentation
 import hashlib
 import base64
 import datetime
@@ -37,19 +38,15 @@ def profile_create(request):
             user.save()
             up = UserProfile.objects.get(user=user)
             up.country = form.cleaned_data['country']
-            #if form.cleaned_data.has_key('state'):
-            #TODO: por que lo tendrias desactivado? En el forms no lo tienes como required=False y el models si tienes null=True
-            up.state = form.cleaned_data['state']
-            #TODO: de donde sale este about
-            #if form.cleaned_data.has_key('about'):
-            #    up.about = form.cleaned_data['about']
+            if form.cleaned_data.has_key('state'):
+                up.state = form.cleaned_data['state']
+            if form.cleaned_data.has_key('about'):
+                up.about = form.cleaned_data['about']
             up.save()
             return HttpResponseRedirect(reverse('success-profile'))
-            #return HttpResponse(simplejson.dumps(context))
         else:
             context = {'formUserProfile': form}
             return render_to_response('base.html',RequestContext(request, context))
-            #return HttpResponse(status=400, content=simplejson.dumps(context))
     return HttpResponseRedirect('/#inscriptions')
 
 def profile_edit(request):
@@ -101,3 +98,36 @@ def profile_activate(request, encoded):
         pass
     context = {'status_message': 'Usuario ya activado o token inválido'}
     return HttpResponse(status=403, content=simplejson.dumps(context))
+
+def speaker_registration(request):
+    if request.method == 'POST':
+        from profiles.forms import SpeakerRegistrationForm
+        form = SpeakerRegistrationForm(request.POST)
+        if form.is_valid():
+            user = User()
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.username = form.cleaned_data['email']
+            user.email = form.cleaned_data['email']
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            up = UserProfile.objects.get(user=user)
+            up.country = form.cleaned_data['country']
+            if form.cleaned_data.has_key('state'):
+                up.state = form.cleaned_data['state']
+            up.about = form.cleaned_data['about']
+            up.save()
+            p = Presentation()
+            p.name = form.cleaned_data['presentation_name']
+            p.description = form.cleaned_data['presentation_description']
+            p.tutorial = form.cleaned_data['presentation_tutorial']
+            p.duration = form.cleaned_data['presentation_duration']
+            p.requirements = forms.cleaned_data['presentation_requirements']
+            p.save()
+            p.speakers.add(user)
+            p.save()
+            return HttpResponseRedirect(reverse('success-profile'))
+        else:
+            context = {'formUserProfile': form}
+            return render_to_response('base.html',RequestContext(request, context))
+    return HttpResponseRedirect('/#inscriptions')

@@ -5,4 +5,5 @@ urlpatterns = patterns('profiles.views',
     url(r'success/$', 'profile_success', name='success-profile'),
     url(r'edit/$', 'profile_edit', name='edit-profile'),
     url(r'confirm/(?P<encoded>\.+)/$', 'profile_activate', name='activate-profile'),
+    url(r'speaker/register/$', 'speaker_registration', name='speaker-registration')
 )
