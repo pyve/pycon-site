@@ -132,7 +132,7 @@
                     </p>
                 </div>
             </section>
-            <section class="row-fluid">
+            <section class="row">
                 <div class="span12" id="inscriptions">
                     <h1>Inscripciones</h1>
                 </div>
@@ -141,6 +141,7 @@
 
                     <p>Si deseas participar como ponente, próximamente estaremos proporcionando el formulario de inscripción para las ponencias, charlas, tutoriales o mesas de trabajo.</p>
                 </div>
+
                 <div class="span7 well">
                     {% if success_message %}
                     <div class="alert alert-success">
@@ -170,11 +171,13 @@
                             <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
                             <div class="errors"></div></br>
                             {% for field in formUserProfile %}
-                            <div class="control-group">
-                                <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
-                                <div class="controls">
-                                    {{ field }}
-                                    <p class="help-inline">{{ field.help_text }}</p>
+                            <div class="row-fluid">
+                                <div class=" span7 control-group">
+                                    <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+                                    <div class="controls">
+                                        {{ field }}
+                                        <p class="help-inline">{{ field.help_text }}</p>
+                                    </div>
                                 </div>
                             </div>
                             {% endfor %}
