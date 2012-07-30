@@ -7,21 +7,21 @@ from profiles.models import *
 
 
 class UserProfileForm(forms.Form):
-    first_name = forms.CharField(max_length=30, widget=widgets.TextInput(attrs={
+    first_name = forms.CharField(label="Nombres",max_length=30, widget=widgets.TextInput(attrs={
         #'required': 'required'
         }))
-    last_name = forms.CharField(max_length=30, widget=widgets.TextInput(attrs={
+    last_name = forms.CharField(label="Apellidos",max_length=30, widget=widgets.TextInput(attrs={
         #'required': 'required'
         }))
-    email = forms.EmailField(widget=widgets.TextInput(attrs={
+    email = forms.EmailField(label="Correo", widget=widgets.TextInput(attrs={
         #'type': 'email'
         }))
-    country = forms.ModelChoiceField(queryset=Country.objects.all())
-    state = forms.ModelChoiceField(queryset=State.objects.all(), required=False)
-    password = forms.CharField(required=True, widget=forms.PasswordInput(attrs={
+    country = forms.ModelChoiceField(label="País", queryset=Country.objects.all())
+    state = forms.ModelChoiceField(label="Estado", queryset=State.objects.all(), required=False)
+    password = forms.CharField(label="Contraseña", required=True, widget=forms.PasswordInput(attrs={
         #'required': 'required'
         }))
-    confirm_password = forms.CharField(required=True, widget=forms.PasswordInput(attrs={
+    confirm_password = forms.CharField(label="Confirmar Contraseña", required=True, widget=forms.PasswordInput(attrs={
         #'required': 'required'
         }))
 
