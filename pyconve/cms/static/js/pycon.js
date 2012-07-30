@@ -25,7 +25,80 @@ var PYCON = {
 			$("#f-attendees").addClass("active");
 		});
 
-        
+        var cantError = 6;
+
+        // var _checkAll = function(){
+        //     var idInputTexts = ["#id_first_name","#id_last_name","#id_email","#id_password","#id_confirm_password"];
+        //     var idComboBox = ["id_country"];
+        //     var cantInput = idInputTexts.length;
+        //     var cantCombo = idComboBox.length;
+        //     var cantTotal = cantCombo + cantInput;
+        //     var cantReady = 0;
+        //     for (var i = 0; i < idInputTexts.length ; i++) {
+        //         if ($(idInputTexts[i]).val().length > 0){
+        //             cantReady++;
+        //         }
+        //     };
+        //     for (var i = 0; i < idComboBox.length ; i++) {
+        //         var idComboBoxSelected = idComboBox + " option:selected";
+        //         if ($(idComboBoxSelected).val() != "") {
+        //             cantReady++;
+        //         }
+        //     };
+        //     if (cantTotal == cantReady){
+        //         $('.form-actions > button').removeClass('disabled');
+        //     } 
+        //     else {
+        //         $('.form-actions > button').addClass('disabled');
+        //     }
+        // }
+
+        var _countError = function(){
+
+            var cantErrors = 0;
+
+            if ($('#id_first_name').val().length < 1) cantErrors ++;
+            if ($('#id_last_name').val().length < 1) cantErrors ++;
+            if ($('#id_email').val().length < 1) cantErrors ++;
+            if ($('#id_password').val().length < 1) cantErrors ++;
+            if ($('#id_confirm_password').val().length < 1) cantErrors ++;
+            if ($('#id_country option:selected').val() == "" ) cantErrors ++;
+
+            var cantDivError = $("#register").find('.alert-error:visible').length;
+
+            if (cantErrors > 0 || cantDivError > 0) {
+                $('.form-actions > button').addClass('disabled');
+                //$('form').
+                //$('form').disableOnSubmit();
+            }
+            else {
+                $('.form-actions > button').removeClass('disabled');
+            }
+            
+        }
+
+        var _checkComboBox = function(idComboBox){
+            $(idComboBox).on("change", (function(){
+                var idComboBoxSelected = idComboBox + " option:selected";
+                if ($(idComboBoxSelected).val() == "") {
+                    $(idComboBoxSelected).parent().parent().parent().parent().find('.span5').hide();
+                    $(idComboBoxSelected).parent().parent().parent().after('<div class="span5 alert alert-error"> Este campo es obligatorio </div>');
+                }
+                else {
+                    $(idComboBoxSelected).parent().parent().parent().parent().find('.span5').hide();
+                }
+                
+            }));
+            $(idComboBox).on("change", (function(){
+                var idComboBoxSelected = idComboBox + " option:selected";
+                if ($(idComboBoxSelected).val() == "19") {
+                    $('#register > div:eq(5)').css("display", "block");
+                }
+                else {
+                    $('#register > div:eq(5)').css("display", "none");
+                }
+            }));
+        }
 
         var _checkInputText = function (idInputText){
             $(idInputText).on("blur", (function(){
@@ -39,21 +112,20 @@ var PYCON = {
                         $(idInputText).parent().parent().after('<div class="span5 alert alert-error"> Este campo debe corresponder a un correo electrónico </div>');
                     }
                 }
+                _countError();
             }));
             $(idInputText).on("keydown", (function(){
                 if ($(idInputText).val().length > 0) {
                    $(idInputText).parent().parent().parent().find('.span5').hide();
                 }
             }));
-
             
         }
-
         var _checkInputTextEqual = function(idInputText1, idInputText2){
 
             $(idInputText2).on("blur", (function(){
                 if ($(idInputText2).val() != $(idInputText1).val()) {
-                    //$(idInputText2).parent().parent().parent().find('.span5').hide();
+                    $(idInputText2).parent().parent().parent().find('.span5').hide();
                     $(idInputText2).parent().parent().after('<div class="span5 alert alert-error">Las contraseñas no coinciden</div>');
                 }
             }));
@@ -66,45 +138,27 @@ var PYCON = {
             }));
         }
         
+
         var idInputTexts = ["#id_first_name","#id_last_name","#id_email","#id_password","#id_confirm_password"];
-        
         for (var i = 0; i < idInputTexts.length ; i++) {
             _checkInputText(idInputTexts[i]);
         };
         
         _checkInputTextEqual('#id_password', '#id_confirm_password');
-
-        
+        _checkComboBox('#id_country');
+        $('#register > div:eq(5)').hide();
+        $('.form-actions > button').addClass('disabled');
     }
 }
 
 $(document).ready(function () {
 
-    //$(".form-horizontal .control-group").addClass('span6');
-
- //    $('#id_first_name').on("blur", (function(){
- //        if ($('#id_first_name').val() == "") {
- //            $('#id_first_name').parent().parent().after('<div class="span5 alert alert-error"> Debes ingresar tu nombre </div>');
- //            $('#id_first_name').unbind("blur");
- //            //return false;
- //        }
- //    }))
-
-	// $(".form-actions").find('.btn').on("click",(function () {
- //        var nombre = $('#id_first_name').value;
- //        alert(nombre);
- //        if ($('#id_first_name').value == "") {
- //            $('#id_first_name').after('<p>Debes ingresar tu nombre</p>');
- //        }
-            // $.ajax({
-            //     type: "GET",
-            //     url:"vef.php",
-            //     data:"nick="+document.nickval.nick.value,
-            //     success:function(msg){
-            //         $("#final").html(msg);
-            //     }
-            // })
-    // }));
+    
+    $("#form").keypress(function(e) {
+      if (e.which == 13) {
+        return false;
+      }
+    });
 
    	PYCON.init();
 });
