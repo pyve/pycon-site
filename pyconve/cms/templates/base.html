@@ -6,6 +6,8 @@
         <link type='text/less' href='{{ STATIC_URL }}css/pycon.less' rel='stylesheet' >
         <link href='http://fonts.googleapis.com/css?family=Advent+Pro:400,600' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/less-1.3.0.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery-1.7.2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.smooth-scroll.js"></script>
     </head>
     <body>
         <header class="fixed-top" id="top">
@@ -94,7 +96,9 @@
                     <p>La entrada a este evento será gratuita y sólo deberás registrarte en esta página en la sección de <b><a href="#inscriptions">Inscripciones</a></b>. Si deseas compartir tus experiencias o deseas participar en la realización de una charla deberás ingresar la información referente en la misma sección.</p>
                 </div>
                 <div class="span5">
+                    <!--
                     <iframe width="425" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=&amp;aq=0&amp;oq=universidad+catolica+andres+bello&amp;sll=10.464655,-66.976229&amp;sspn=0.005455,0.009645&amp;t=m&amp;ie=UTF8&amp;ll=10.464475,-66.976519&amp;spn=0.01055,0.018239&amp;z=15&amp;output=embed"></iframe>
+                -->
                 </div>
             </section>
             <section class="row">
@@ -137,7 +141,7 @@
                     <h1>Inscripciones</h1>
                 </div>
                 <div class="span4">
-                    <p>La entrada al <b>PyCon Venezuela 2012</b> será libre. Sin embargo, para facilitar la entrega de los certificados te recomendamos registrarte en la página</p>
+                    <p>La entrada al <b>PyCon Venezuela 2012</b> será libre. Sin embargo, para facilitar la entrega de los certificados te recomendamos registrarte en la página.</p>
 
                     <p>Si deseas participar como ponente, próximamente estaremos proporcionando el formulario de inscripción para las ponencias, charlas, tutoriales o mesas de trabajo.</p>
                 </div>
@@ -203,7 +207,7 @@
             <center>PyCon Venezuela 2012.  Powered by <a href="http://zava.com.ve">ZAVA</a></center>
         </footer>
 
-        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery-1.7.2.js"></script>
+        
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/effects.core.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-carousel.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-transition.js"></script>

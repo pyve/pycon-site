@@ -1,3 +1,15 @@
+(function ($) {
+    $.fn.delayKeyup = function(callback, ms){
+        var timer = 0;
+        $(this).keyup(function(){                   
+            clearTimeout (timer);
+            timer = setTimeout(callback, ms);
+        });
+        return $(this);
+    };
+})(jQuery);
+
+
 var PYCON = {
     init: function () {
         //console.log("hello world!")
@@ -24,34 +36,6 @@ var PYCON = {
 			$("#f-speakers").removeClass("active");
 			$("#f-attendees").addClass("active");
 		});
-
-        var cantError = 6;
-
-        // var _checkAll = function(){
-        //     var idInputTexts = ["#id_first_name","#id_last_name","#id_email","#id_password","#id_confirm_password"];
-        //     var idComboBox = ["id_country"];
-        //     var cantInput = idInputTexts.length;
-        //     var cantCombo = idComboBox.length;
-        //     var cantTotal = cantCombo + cantInput;
-        //     var cantReady = 0;
-        //     for (var i = 0; i < idInputTexts.length ; i++) {
-        //         if ($(idInputTexts[i]).val().length > 0){
-        //             cantReady++;
-        //         }
-        //     };
-        //     for (var i = 0; i < idComboBox.length ; i++) {
-        //         var idComboBoxSelected = idComboBox + " option:selected";
-        //         if ($(idComboBoxSelected).val() != "") {
-        //             cantReady++;
-        //         }
-        //     };
-        //     if (cantTotal == cantReady){
-        //         $('.form-actions > button').removeClass('disabled');
-        //     } 
-        //     else {
-        //         $('.form-actions > button').addClass('disabled');
-        //     }
-        // }
 
         var _countError = function(){
 
@@ -87,6 +71,7 @@ var PYCON = {
                 else {
                     $(idComboBoxSelected).parent().parent().parent().parent().find('.span5').hide();
                 }
+                _countError();
                 
             }));
             $(idComboBox).on("change", (function(){
@@ -123,17 +108,24 @@ var PYCON = {
         }
         var _checkInputTextEqual = function(idInputText1, idInputText2){
 
-            $(idInputText2).on("blur", (function(){
+            $(idInputText2).on("keyup", (function(){
                 if ($(idInputText2).val() != $(idInputText1).val()) {
                     $(idInputText2).parent().parent().parent().find('.span5').hide();
                     $(idInputText2).parent().parent().after('<div class="span5 alert alert-error">Las contraseñas no coinciden</div>');
                 }
-            }));
-            $(idInputText2).on("keydown", (function(){
-                $(idInputText2).bind("blur");
-                if ($(idInputText2).val().length > 0) {
+                else {
                     $(idInputText2).parent().parent().parent().find('.span5').hide();
-
+                    $(idInputText1).parent().parent().parent().find('.span5').hide();
+                }
+            }));
+            $(idInputText1).on("keyup", (function(){
+                if ($(idInputText1).val() != $(idInputText2).val()) {
+                    $(idInputText1).parent().parent().parent().find('.span5').hide();
+                    $(idInputText1).parent().parent().after('<div class="span5 alert alert-error">Las contraseñas no coinciden</div>');
+                }
+                else {
+                    $(idInputText2).parent().parent().parent().find('.span5').hide();
+                    $(idInputText1).parent().parent().parent().find('.span5').hide();
                 }
             }));
         }
@@ -144,7 +136,8 @@ var PYCON = {
             _checkInputText(idInputTexts[i]);
         };
         
-        _checkInputTextEqual('#id_password', '#id_confirm_password');
+        //_checkInputTextEqual('#id_password', '#id_confirm_password');
+        _checkInputTextEqual('#id_confirm_password', '#id_password');
         _checkComboBox('#id_country');
         $('#register > div:eq(5)').hide();
         $('.form-actions > button').addClass('disabled');
