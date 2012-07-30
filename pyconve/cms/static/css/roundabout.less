@@ -57,12 +57,12 @@
     position: absolute;
     padding: 10px 13px;
     width: 450px;
-    background-color: #000;
+    background-color: @black;
     filter: alpha(opacity=70);
     -moz-opacity: 0.7;
    -khtml-opacity: 0.7;
     opacity: 0.7;
-    color: #fff;
+    color: @white;
     display: none;
 }
 .clear {
@@ -78,4 +78,14 @@
 .bottom {
    bottom: 0;
     left: 0;
+}
+//----------OTROS------------
+.leyend{
+padding: 380px 0px 0px 20px;
+width:400px;
+text-align:left;
+float:left;
+.conf{width:12px;height:12px;background-color:#45712c;float:left;margin: 3px 4px 0px 10px;}
+.pconf{width:12px;height:12px;background-color:@gray;float:left;margin: 3px 4px 0px 10px;}
+.ctext{float:left;}
 }
