@@ -6,8 +6,6 @@
         <link type='text/less' href='{{ STATIC_URL }}css/pycon.less' rel='stylesheet' >
         <link href='http://fonts.googleapis.com/css?family=Advent+Pro:400,600' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/less-1.3.0.min.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery-1.7.2.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.smooth-scroll.js"></script>
     </head>
     <body>
         <header class="fixed-top" id="top">
@@ -107,23 +105,34 @@
                 <h3>Del 1 al 3 de Noviembre del 2012</h3>
                 <br><br>
                 {% include '_activities.html' %}
+                <div class="leyend">
+                    <div class="conf"></div>
+                    <div class="ctext">confirmado</div>
+                    <div class="pconf"></div>
+                    <div class="ctext">por confirmar</div><br><br>
+                <p>Nota: El detalle, biografía y fecha/hora asignada se iran completando a medida que los autores actualizan y confirman dichos datos.</p>
+
                 </div>
+
+                </div>
+                
                 <div class="span5">
                     <h2>Actividades PyCon</h2>
                     <p>
                         Ven y acompañanos en las actividades que estaremos realizando para compartir experiencias y conocimientos relacionados con Python.</p>
 
-                        <p>Aquí encontraras todas las Ponencias, Conferencias, Campamentos, que se realizarán en la primera edicián del PyCon Venezuela.</p>
+                        <p>Aquí encontraras todas las Ponencias, Conferencias, Campamentos, que se realizarán en la primera edición del PyCon Venezuela.</p>
 
                         <p>Nota: El detalle, biografía y fecha/hora asignada se completan automáticamente a medida que los autores actualizan y confirman dichos datos.</p>
 
                     </p>
-                    <!--h2>Galería de actividades en otros PyCon a nivel mundial</h2>
+                    <h2>Galería de otros PyCon a nivel mundial</h2>
                     <p>
-                    </p-->
+                        {% include '_gallery_act.html' %}
+                    </p>
                 </div>
             </section>
-            <section class="row-fluid">
+            <section class="row">
                 <div class="span12" id="inscriptions">
                     <h1>Inscripciones</h1>
                 </div>
@@ -132,6 +141,7 @@
 
                     <p>Si deseas participar como ponente, próximamente estaremos proporcionando el formulario de inscripción para las ponencias, charlas, tutoriales o mesas de trabajo.</p>
                 </div>
+
                 <div class="span7 well">
                     {% if success_message %}
                     <div class="alert alert-success">
@@ -161,11 +171,13 @@
                             <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
                             <div class="errors"></div></br>
                             {% for field in formUserProfile %}
-                            <div class="control-group">
-                                <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
-                                <div class="controls">
-                                    {{ field }}
-                                    <p class="help-inline">{{ field.help_text }}</p>
+                            <div class="row-fluid">
+                                <div class=" span7 control-group">
+                                    <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+                                    <div class="controls">
+                                        {{ field }}
+                                        <p class="help-inline">{{ field.help_text }}</p>
+                                    </div>
                                 </div>
                             </div>
                             {% endfor %}
@@ -197,13 +209,31 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-transition.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-tooltip.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-popover.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/pycon.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.easing.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.event.drag.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.event.drop.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout2.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ba-bbq.js"></script>
-        <!--script type="text/javascript" src="{{ STATIC_URL }}js/jquery.roundabout.js"></script-->
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.roundabout.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.event.drag-2.2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.event.drop-2.2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.roundabout-shapes.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/s3Slider.js"></script>
 
+        <script type="text/javascript" src="{{ STATIC_URL }}js/pycon.js"></script>
+        <script>
+           $(document).ready(function() {
+              $('#ra').roundabout({
+                autoplay: true,
+                autoplayDuration: 6000,
+                autoplayPauseOnHover: true,
+                enableDrag: true
+              });
+           });
+
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#slider').s3Slider({
+                    timeOut: 6000
+                });
+            });
+        </script>
     </body>
 </html>
