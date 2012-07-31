@@ -131,3 +131,10 @@ def speaker_registration(request):
             context = {'formUserProfile': form}
             return render_to_response('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
+
+
+@login_required(login_url=settings.LOGIN_URL)
+def profiles_myprofile(request):
+    p = get404(UserProfile, user=request.user)
+    context = {'data': p}
+    return Render('/profiles/myprofile.html', RequestContext(request, context))
