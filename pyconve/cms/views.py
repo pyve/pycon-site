@@ -114,3 +114,16 @@ def my_presentations(request):
     ps = request.user.presentation_set.all()
     context = {'data': ps}
     return HttpResponse(simplejson.dumps(context))
+
+@login_requires(login_url=settings.LOGIN_URL)
+def presentation_delete(request, p_id):
+    if request.method == 'POST':
+        p = get404(Presentation, id=p_id)
+        if request.user in p.speakers.all():
+            p.delete()
+        else:
+            context = {'status_message': 'Esta presentación no es tuya'}
+            return HttpResponse(status=403, content=context)
+        return HttpResponse(status=200)
+    return HttpResponse(status=405)
+            return 
