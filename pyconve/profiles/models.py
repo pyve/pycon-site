@@ -7,7 +7,7 @@ from localization.models import *
 class RegistrationProfile(models.Model):
     user = models.OneToOneField(User)
     token = models.CharField(max_length=32)
-    encoded = models.CharField(max_length=32)
+    encoded = models.CharField(max_length=256, db_index=True)
     created = models.DateTimeField(auto_now_add=True)
     consumed = models.DateTimeField(null=True, blank=True)
     
