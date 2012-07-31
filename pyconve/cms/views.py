@@ -11,7 +11,8 @@ from cms.forms import PresentationForm
 
 def home(request):
     from profiles.forms import UserProfileForm
-    context = {'form': PresentationForm(), 'formUserProfile': UserProfileForm()}
+    from profiles.forms import SpeakerRegistrationForm
+    context = {'formSpeakerRegistration': SpeakerRegistrationForm(), 'formUserProfile': UserProfileForm()}
     return Render('base.html', RequestContext(request, context))
 
 @login_required(login_url=settings.LOGIN_URL)
