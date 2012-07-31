@@ -10,7 +10,7 @@
 	{% endblocktrans %}
 {% endblock %}
 {% block content %}
-{% url profile-activate token=user.registrationprofile.encoded as theurl %}
+{% url profile-activate token=profile.encoded as theurl %}
 	{% blocktrans with firstname=user.first_name %}
 		<p>Hola, {{ firstname }}</p>
 		<p>Te has suscrito al portal del PyConVE 2012, gracias por tu intención de asistir.</a>

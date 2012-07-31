@@ -15,7 +15,8 @@ def send_confirmation_email(user):
     subject = "Confirma tu registro para el PyConVE-2012"
     from_email = settings.DEFAULT_FROM_EMAIL
     to = user.email
-    html_content = loader.render_to_string('profiles/email_confirmation.html', {'site': settings.SITE_NAME, 'user': user})
+    profile = RegistrationProfile.objects.get(user=user)
+    html_content = loader.render_to_string('profiles/email_confirmation.html', {'site': settings.SITE_NAME, 'user': user, 'profile': profile})
     txt_content = strip_tags(html_content)
     msg = EmailMultiAlternatives(subject, txt_content, from_email, [to])
     msg.attach_alternative(html_content, 'text/html')
