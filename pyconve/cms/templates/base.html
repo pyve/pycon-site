@@ -133,7 +133,7 @@
                     </p>
                 </div>
             </section>
-            <section class="row">
+            <section class="row" id="inscription">
                 <div class="span12" id="inscriptions">
                     <h1>Inscripciones</h1>
                 </div>
@@ -141,53 +141,28 @@
                     <p>La entrada al <b>PyCon Venezuela 2012</b> será libre. Sin embargo, para facilitar la entrega de los certificados te recomendamos registrarte en la página.</p>
 
                     <p>Si deseas participar como ponente, próximamente estaremos proporcionando el formulario de inscripción para las ponencias, charlas, tutoriales o mesas de trabajo.</p>
-                </div>
 
-                <div class="span7 well">
-                    {% if success_message %}
-                    <div class="alert alert-success">
-                        {{success_message}}
-                    </div>
-                    <script type='text/javascript'>
-                        $.smoothScroll({
-                            scrollTarget: '#inscriptions'
-                          });
-                    </script>
-                    {% else %}
-                    {% if formUserProfile.errors %}
-                    <script type='text/javascript'>
-                        $.smoothScroll({
-                            scrollTarget: '#inscriptions'
-                          });
-                    </script>
-                    <ul style="list-style-type:none;">
-                    {% for error in formUserProfile.errors.values %}
-                    <li class="alert alert-error">{{error}}</li>
-                    {% endfor %}
+
+                </div>
+                <div class="span7">
+
+                    <ul class="nav nav-tabs">
+                        <li id="f-attendees" class="active">
+                            <a class="show-form-attendees">Asistentes</a>
+                        </li>
+                        <li id="f-speakers">
+                            <a class="show-form-speakers">Ponencias</a>
+                        </li>
                     </ul>
-                    {% endif %}
-                    <form id="form" class="form-horizontal" action="{% url create-profile %}" method="post">
-                        {% csrf_token %}
-                        <fieldset id="register">
-                            <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
-                            <div class="errors"></div></br>
-                            {% for field in formUserProfile %}
-                            <div class="row-fluid">
-                                <div class=" span7 control-group">
-                                    <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
-                                    <div class="controls">
-                                        {{ field }}
-                                        <p class="help-inline">{{ field.help_text }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            <div class="form-actions" align="right">
-                                <button type="submit" class="btn btn-success btn-large">Registrarme</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                    {% endif %}
+
+                    <div class="form-attendees">
+                        {% include '_attenders.html' %}
+                    </div>
+
+                    <div class="form-speakers">
+                        {% include '_attenders.html' %}
+                    </div>
+                    
                 </div>
                 
             </section>

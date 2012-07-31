@@ -16,6 +16,7 @@ var PYCON = {
         //
         $('[rel=popover]').popover()
         
+        
         $(".show-form-speakers").click(function() {
         	$(".form-attendees").fadeOut(200, function(){
         		$(".form-speakers").fadeIn(500);
