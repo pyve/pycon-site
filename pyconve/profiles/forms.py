@@ -56,3 +56,6 @@ class SpeakerRegistrationForm(forms.Form):
         return self.data['s_email']
 
 
+class LoginForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(wiget=forms.PasswordInput)
