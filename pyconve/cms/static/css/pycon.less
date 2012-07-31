@@ -49,6 +49,11 @@ p {
     text-align: justify;
 }
 
+section {
+    padding: 20px;
+    .border-radius(4px);
+}
+
 #banner {
     .item {
         background-color: @black;
@@ -64,9 +69,7 @@ p {
                 padding: 20px;
                 margin-top: 310px;
                 background-color: rgba(200,200,200,0.3);
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
+                .border-radius(5px);
             }
         }
         &:nth-child(3) {

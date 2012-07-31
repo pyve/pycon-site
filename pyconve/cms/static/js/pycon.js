@@ -12,8 +12,6 @@
 
 var PYCON = {
     init: function () {
-        //console.log("hello world!")
-        //
         $('[rel=popover]').popover()
         
         $(".show-form-speakers").click(function() {
@@ -21,8 +19,6 @@ var PYCON = {
         		$(".form-speakers").fadeIn(500);
         	});
 			
-        	//$(".form-attendees").animate({ height: "hide"}, 1000, "swing");
-			//$(".form-speakers").animate({ height: "show"}, 1000, "swing");
 			$("#f-speakers").addClass("active");
 			$("#f-attendees").removeClass("active");
 		});
@@ -31,8 +27,6 @@ var PYCON = {
 			$(".form-speakers").fadeOut(200, function(){
 				$(".form-attendees").fadeIn(500);
 			});
-        	//$(".form-speakers").animate({ height: "hide"}, 1000, "swing");
-			//$(".form-attendees").animate({ height: "show"}, 1000, "swing");
 			$("#f-speakers").removeClass("active");
 			$("#f-attendees").addClass("active");
 		});
@@ -148,25 +142,32 @@ var PYCON = {
         _checkComboBox('#id_country');
         $('#register > div:eq(5)').hide();
         $('.form-actions > button').addClass('disabled');
+
+        $('header ul a').bind('click',function(event){
+            var $anchor = $(this);
+     
+            $('html, body').stop().animate({
+                scrollTop: $($anchor.attr('href')).offset().top
+            }, 500,'easeInOutExpo');
+            event.preventDefault();
+        });
+        
+        $("#form").keypress(function(e) {
+            if (e.which == 13) {
+            return false;
+            }
+        });
+        $('#ra').roundabout({
+            autoplay: true,
+            autoplayDuration: 5000,
+            autoplayPauseOnHover: true,
+            enableDrag: true
+        });
+
+        $('#slider').s3Slider({
+            timeOut: 5000
+        });
     }
 }
 
-$(document).ready(function () {
-
-    $('header ul a').bind('click',function(event){
-        var $anchor = $(this);
- 
-        $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top
-        }, 500,'easeInOutExpo');
-        event.preventDefault();
-    });
-    
-    $("#form").keypress(function(e) {
-      if (e.which == 13) {
-        return false;
-      }
-    });
-
-   	PYCON.init();
-});
+$(document).ready(function () {PYCON.init();});
