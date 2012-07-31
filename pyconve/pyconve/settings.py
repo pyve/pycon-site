@@ -128,6 +128,7 @@ INSTALLED_APPS = (
 )
 
 LOGIN_URL = '/profiles/login'
+LOGIN_REDIRECT_URL = '/profiles/me'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
