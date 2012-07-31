@@ -8,4 +8,4 @@ from django import forms
 class PresentationForm(forms.ModelForm):
     class Meta:
         model = Presentation
-        exclude = ('votes', 'approved')
+        exclude = ('votes', 'approved', 'speakers')

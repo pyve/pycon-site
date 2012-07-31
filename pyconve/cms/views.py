@@ -32,7 +32,7 @@ def presentation_create(request):
             p.duration = form.cleaned_data['duration']
             p.requirements = form.cleaned_data['requirements']
             p.save()
-            p.speakers = form.cleaned_data['speakers']
+            p.speakers.add(request.user)
             p.save()
             context = {'status_message': 'Charla creada'}
             return HttpResponse(simplejson.dumps(context))
@@ -100,8 +100,6 @@ def presentation_edit(request, presentation_id):
 def presentation_vote(request, presentation_id):
     context = {}
     if request.method == 'POST':
-        import pdb
-        pdb.set_trace()
         p = get404(Presentation, id=presentation_id)
         pdb.set_trace()
         p.votes += 1
@@ -109,3 +107,9 @@ def presentation_vote(request, presentation_id):
         context = {'status_message': 'Voto agregado con éxito'}
         return HttpResponse(simplejson.dumps(context))
     return HttpResponse(status=405)
+
+@login_required(login_url=settings.LOGIN_URL)
+def my_presentations(request):
+    ps = [p for p in Presentation.objects.all() if request.user in p.speakers.all()]
+    context = {'data': ps}
+    return HttpResponse(simplejson.dumps(context))
