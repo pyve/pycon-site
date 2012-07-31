@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.utils import simplejson
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from profiles.models import *
 from cms.models import Presentation
 import hashlib
