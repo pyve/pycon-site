@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.utils import simplejson
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from profiles.models import *
 from cms.models import Presentation
 import hashlib
@@ -49,6 +51,7 @@ def profile_create(request):
             return render_to_response('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
 
+@login_required(login_url=settings.LOGIN_URL)
 def profile_edit(request):
     """
     GET: show profile edit form with current data
@@ -131,3 +134,9 @@ def speaker_registration(request):
             context = {'formUserProfile': form}
             return render_to_response('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
+
+@login_required(login_url=settings.LOGIN_URL)
+def profiles_myprofile(request):
+    p = get404(UserProfile, user=request.user)
+    context = {'data': p}
+    return Render('/profiles/myprofile.html', RequestContext(request, context))
