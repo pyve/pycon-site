@@ -108,8 +108,9 @@ def presentation_vote(request, presentation_id):
         return HttpResponse(simplejson.dumps(context))
     return HttpResponse(status=405)
 
+
 @login_required(login_url=settings.LOGIN_URL)
 def my_presentations(request):
-    ps = [p for p in Presentation.objects.all() if request.user in p.speakers.all()]
+    ps = request.user.presentation_set.all()
     context = {'data': ps}
     return HttpResponse(simplejson.dumps(context))

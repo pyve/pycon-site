@@ -51,6 +51,7 @@ def profile_create(request):
             return render_to_response('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
 
+@login_required(login_url=settings.LOGIN_URL)
 def profile_edit(request):
     """
     GET: show profile edit form with current data
@@ -133,7 +134,6 @@ def speaker_registration(request):
             context = {'formUserProfile': form}
             return render_to_response('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
-
 
 @login_required(login_url=settings.LOGIN_URL)
 def profiles_myprofile(request):
