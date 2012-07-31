@@ -52,11 +52,16 @@ var PYCON = {
 
             if (cantErrors > 0 || cantDivError > 0) {
                 $('.form-actions > button').addClass('disabled');
+                $('.form-actions > button').attr('disabled','disabled');
+                
+
                 //$('form').
                 //$('form').disableOnSubmit();
             }
             else {
                 $('.form-actions > button').removeClass('disabled');
+                $('.form-actions > button').removeAttr('disabled');
+
             }
             
         }
@@ -86,7 +91,7 @@ var PYCON = {
         }
 
         var _checkInputText = function (idInputText){
-            $(idInputText).on("blur", (function(){
+            $(idInputText).on("keyup", (function(){
                 if ($(idInputText).val() == "") {
                     $(idInputText).parent().parent().parent().find('.span5').hide();
                     $(idInputText).parent().parent().after('<div class="span5 alert alert-error"> Este campo es obligatorio </div>');
@@ -117,6 +122,7 @@ var PYCON = {
                     $(idInputText2).parent().parent().parent().find('.span5').hide();
                     $(idInputText1).parent().parent().parent().find('.span5').hide();
                 }
+                _countError();
             }));
             $(idInputText1).on("keyup", (function(){
                 if ($(idInputText1).val() != $(idInputText2).val()) {
@@ -127,6 +133,7 @@ var PYCON = {
                     $(idInputText2).parent().parent().parent().find('.span5').hide();
                     $(idInputText1).parent().parent().parent().find('.span5').hide();
                 }
+                _countError();
             }));
         }
         
@@ -146,6 +153,14 @@ var PYCON = {
 
 $(document).ready(function () {
 
+    $('header ul a').bind('click',function(event){
+        var $anchor = $(this);
+ 
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 500,'easeInOutExpo');
+        event.preventDefault();
+    });
     
     $("#form").keypress(function(e) {
       if (e.which == 13) {
