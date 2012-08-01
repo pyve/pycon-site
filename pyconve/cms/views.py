@@ -126,4 +126,3 @@ def presentation_delete(request, p_id):
             return HttpResponse(status=403, content=context)
         return HttpResponse(status=200)
     return HttpResponse(status=405)
-            return 
