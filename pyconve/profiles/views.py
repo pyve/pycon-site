@@ -20,7 +20,7 @@ def logout(request):
 
 def profile_success(request):
     context = {'success_message': 'El perfil ha sido creado correctamente. Por favor revise su correo para validar el registro.'}
-    return render_to_response('base.html',RequestContext(request, context))
+    return Render('base.html',RequestContext(request, context))
 
 def profile_create(request):
     """
@@ -48,7 +48,7 @@ def profile_create(request):
             return HttpResponseRedirect(reverse('success-profile'))
         else:
             context = {'formUserProfile': form}
-            return render_to_response('base.html',RequestContext(request, context))
+            return Render('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
 
 @login_required(login_url=settings.LOGIN_URL)
@@ -95,12 +95,12 @@ def profile_activate(request, encoded):
         if (not regprofile.user.is_active) and email == regprofile.user.email and token == regprofile.token:
             regprofile.user.is_active = True
             regprofile.user.save()
-            context = {'status_message': 'Perfil activate'}
-            return Render('profiles/profile_activate.html', RequestContext(request, context))
+            context = {'success_message': 'Perfil activado, ahora puede iniciar sesión con su correo electrónico'}
+            return Render('base.html', RequestContext(request, context))
     except:
         pass
-    context = {'status_message': 'Usuario ya activado o token inválido'}
-    return HttpResponse(status=403, content=simplejson.dumps(context))
+    context = {'error_message': 'Usuario ya activado o token inválido'}
+    return Render('base.html', RequestContext(request, context))
 
 def speaker_registration(request):
     if request.method == 'POST':
@@ -132,8 +132,9 @@ def speaker_registration(request):
             return HttpResponseRedirect(reverse('success-profile'))
         else:
             context = {'formUserProfile': form}
-            return render_to_response('base.html',RequestContext(request, context))
+            return Render('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
+
 
 @login_required(login_url=settings.LOGIN_URL)
 def profiles_myprofile(request):
