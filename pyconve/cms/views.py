@@ -85,7 +85,8 @@ def presentation_edit(request, presentation_id):
             p.save()
             ps = request.user.presentation_set.all()
             context = {'ps': ps, 'formSpeakerRegistration' : PresentationForm()}
-            return Render('profile.html',RequestContext(request, context))
+            return HttpResponseRedirect(reverse('my-profile'))
+            # return Render('profile.html',RequestContext(request, context))
 
             # context = {'status_message': 'Cambios realizados'}
             # return HttpResponse(simplejson.dumps(context))
@@ -142,15 +143,21 @@ def my_presentations(request):
     context = {'data': ps}
     return HttpResponse(simplejson.dumps(context))
 
-@login_requires(login_url=settings.LOGIN_URL)
-def presentation_delete(request, p_id):
+@login_required(login_url=settings.LOGIN_URL)
+def presentation_delete(request, presentation_id):
+    p = get404(Presentation, id=presentation_id)
     if request.method == 'POST':
-        p = get404(Presentation, id=p_id)
+        #p = get404(Presentation, id=presentation_id)
         if request.user in p.speakers.all():
             p.delete()
         else:
             context = {'status_message': 'Esta presentación no es tuya'}
             return HttpResponse(status=403, content=context)
         return HttpResponse(status=200)
+    else:
+        p.delete()
+        ps = request.user.presentation_set.all()
+        context = {'ps': ps, 'formSpeakerRegistration' : PresentationForm()}
+        #return Render('_presentation.html',RequestContext(request, context))
+        return HttpResponseRedirect(reverse('my-profile'))
     return HttpResponse(status=405)
-            return 

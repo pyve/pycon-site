@@ -57,9 +57,12 @@ var PROFILE = {
                     $(idInputText).parent().parent().parent().find('.span4').hide();
                     $(idInputText).parent().parent().after('<div class="span4 alert alert-error"> Campo obligatorio </div>');
                 }
+                else {
+                    $(idInputText).parent().parent().parent().find('.span4').hide();
+                }
                 _countError();
             }));
-            $(idInputText).on("keydown", (function(){
+            $(idInputText).on("keydow", (function(){
                 if ($(idInputText).val().length > 0) {
                    $(idInputText).parent().parent().parent().find('.span4').hide();
                 }
@@ -86,11 +89,19 @@ var PROFILE = {
             return false;
             }
         });
+
+        if ($('.alert-success').is (':visible')){
+            setTimeout("$('.alert-success').fadeOut('fast');",1000) ;
+        };
     },
 
     editPresentation: function (presentation){
-        console.log(presentation.data().url);
         $('#formulario').load(presentation.data().url);
+    },
+
+    deletePresentation: function (presentation){
+        presentation.parent().remove();
+        //$('#formulario').load(presentation.data().url);
     }
 }
 

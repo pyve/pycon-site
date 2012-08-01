@@ -11,15 +11,15 @@
     <body>
         <header class="fixed-top" id="top">
             <h1><a href="http://www.pyconve.com">PyCon Venezuela</a></h1>
-            <ul>
-                <!--
-                <li><a href="#about-it">Acerca de...</a></li>
-                <li><a href="#activities">Actividades</a></li>
-                <li><a href="#inscriptions">Inscripciones</a></li>
-                <li><a href="#sponsors">Patrocinantes</a></li>
-                -->
-                <li><a href="">Cerrar Sesión</a></li-->
-            </ul>
+                <ul id="mainProfile">
+                    <!--
+                    <li><a href="#about-it">Acerca de...</a></li>
+                    <li><a href="#activities">Actividades</a></li>
+                    <li><a href="#inscriptions">Inscripciones</a></li>
+                    <li><a href="#sponsors">Patrocinantes</a></li>
+                    -->
+                    <li><a href="{% url logout %}">Cerrar Sesión</a></li-->
+                </ul>
         </header>
         <div class="container">
             <div class="row-fluid">
@@ -29,31 +29,7 @@
                     </div>
                 </div>
                 <div id="list" class="span8">
-
-                    <h2>Mis ponencias y/o tutorias</h2>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Presentación</th>
-                                <th>Descripción</th>
-                                <th>Es Tutorial</th>
-                                <th>Tiempo</th>
-                                <th>Requerimientos</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                            {% for elemento in ps %}
-                                <tr data-action="editPresentation" data-url="{% url presentation-edit presentation_id=elemento.id %}">
-                                    <td>{{elemento.name }}</td>
-                                    <td>{{elemento.description }}</td>
-                                    <td>{{elemento.tutorial }}</td>
-                                    <td>{{elemento.duration }}</td>
-                                    <td>{{elemento.requirements}}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    {% include '_presentation_list.html' %}
                 </div>
             </div>
         </div>

@@ -32,18 +32,14 @@ var LOGIN = {
         }
 
         var _checkInputText = function (idInputText){
-            $(idInputText).on("keyup", (function(){
+            $(idInputText).on("blur", (function(){
                 if ($(idInputText).val() == "") {
                     $(idInputText).parent().find('.help-inline').hide();
                     $(idInputText).parent().find('.help-inline').html('<div class="alert alert-error"> Campo obligatorio </div>');
                     $(idInputText).parent().find('.help-inline').show();
                 }
-                if ((idInputText) == '#id_email'){
-                    if ($(idInputText).val().indexOf('@', 0) == -1 || $(idInputText).val().indexOf('.', 0) == -1) {
-                        $(idInputText).parent().find('.help-inline').hide();
-                        $(idInputText).parent().find('.help-inline').html('<div class="alert alert-error"> Este campo debe corresponder a un correo electrónico </div>');
-                        $(idInputText).parent().find('.help-inline').show();
-                    }
+                else {
+                    $(idInputText).parent().find('.help-inline').hide(); 
                 }
                 _countError();
             }));
@@ -53,7 +49,6 @@ var LOGIN = {
                 }
                 _countError();
             }));
-            
         }
 
         var idInputTextsAttenders = [

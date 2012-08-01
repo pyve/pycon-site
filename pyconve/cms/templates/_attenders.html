@@ -28,13 +28,14 @@
             <div class="errors"></div></br>
             {% for field in formUserProfile %}
             <div class="row-fluid">
-                <div class=" span8 control-group">
+                <div class="span8 control-group">
                     <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
                     <div class="controls">
                         {{ field }}
                         <p class="help-inline">{{ field.help_text }}</p>
                     </div>
                 </div>
+                <div class="span4 message" style="visible:none"></div>
             </div>
             {% endfor %}
             <div class="form-actions" align="right">
