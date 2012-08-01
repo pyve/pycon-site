@@ -1,5 +1,5 @@
 #coding=utf-8
-from django.shortcuts import render_to_response as Render
+from django.shortcuts import Render as Render
 from django.contrib.auth.models import User
 from django.contrib.auth.views import logout as auth_logout
 from django.http import HttpResponse, HttpResponseRedirect
@@ -20,7 +20,7 @@ def logout(request):
 
 def profile_success(request):
     context = {'success_message': 'El perfil ha sido creado correctamente. Por favor revise su correo para validar el registro.'}
-    return render_to_response('base.html',RequestContext(request, context))
+    return Render('base.html',RequestContext(request, context))
 
 def profile_create(request):
     """
@@ -48,7 +48,7 @@ def profile_create(request):
             return HttpResponseRedirect(reverse('success-profile'))
         else:
             context = {'formUserProfile': form}
-            return render_to_response('base.html',RequestContext(request, context))
+            return Render('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
 
 @login_required(login_url=settings.LOGIN_URL)
@@ -132,7 +132,7 @@ def speaker_registration(request):
             return HttpResponseRedirect(reverse('success-profile'))
         else:
             context = {'formUserProfile': form}
-            return render_to_response('base.html',RequestContext(request, context))
+            return Render('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
 
 @login_required(login_url=settings.LOGIN_URL)
