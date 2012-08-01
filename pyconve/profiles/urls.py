@@ -7,8 +7,9 @@ urlpatterns = patterns('profiles.views',
     url(r'confirm/(?P<encoded>\.+)/$', 'profile_activate', name='activate-profile'),
     url(r'speaker/register/$', 'speaker_registration', name='speaker-registration'),
     url(r'me/$', 'profiles_myprofile', name='my-profile'),
+    url(r'logout/$', 'logout', name='logout'),
 )
 
 urlpatterns += patterns('',
-    url(r'^login/$','django.contrib.auth.views.login',{'template_name':'profiles/login.html'},name='profiles-login'),
+    url(r'^login/$','django.contrib.auth.views.login',{'template_name':'login.html'},name='profiles-login'),
 )

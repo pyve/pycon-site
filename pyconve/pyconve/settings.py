@@ -1,5 +1,6 @@
 # Django settings for pyconve project.
 import os
+from django.core.urlresolvers import reverse
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,7 +13,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'warupeco_pycon2012',                      # Or path to database file if using sqlite3.
         'USER': 'warupeco_pycon',                      # Not used with sqlite3.
         'PASSWORD': 'J$N[{?#m4w8h',                  # Not used with sqlite3.
@@ -128,7 +129,7 @@ INSTALLED_APPS = (
 )
 
 LOGIN_URL = '/profiles/login'
-LOGIN_REDIRECT_URL = '/profiles/me'
+LOGIN_REDIRECT_URL = reverse('my-profile')#'/profiles/me'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -1,7 +1,7 @@
 {% load pycon_helpers %}
 <html>
     <head>
-        <title>PyCon Venezuela 2012</title>
+        <title>Pycon Venezuela 2012</title>
         <link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
         <link type='text/less' href='{{ STATIC_URL }}css/pycon.less' rel='stylesheet' >
         <link href='http://fonts.googleapis.com/css?family=Advent+Pro:400,600' rel='stylesheet' type='text/css'>
@@ -11,14 +11,13 @@
     </head>
     <body>
         <header class="fixed-top" id="top">
-            <h1><a href="#top">PyCon Venezuela</a></h1>
+            <h1><a href="#top">Pycon Venezuela</a></h1>
             <ul>
-                <li><a href="#about-it">Acerca de...</a></li>
+                <li><a href="#about-it">Acerca de</a></li>
                 <li><a href="#activities">Actividades</a></li>
                 <li><a href="#inscriptions">Inscripciones</a></li>
                 <li><a href="#sponsors">Patrocinantes</a></li>
-                <li><a href="{% url profiles-login %}">Iniciar Sesión</a></li>
-                
+                <!--li><a href="">Iniciar Sesión</a></li-->
             </ul>
         </header>
         <div class="container">
@@ -104,9 +103,7 @@
                         <p>La entrada a este evento será gratuita y sólo deberás registrarte en esta página en la sección de <b><a href="#inscriptions">Inscripciones</a></b>. Si deseas compartir tus experiencias o deseas participar en la realización de una charla deberás ingresar la información referente en la misma sección.</p>
                     </div>
                     <div class="span5">
-                        <!--
                         <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=&amp;aq=0&amp;oq=universidad+catolica+andres+bello&amp;sll=10.464655,-66.976229&amp;sspn=0.005455,0.009645&amp;t=m&amp;ie=UTF8&amp;ll=10.464475,-66.976519&amp;spn=0.01055,0.018239&amp;z=15&amp;output=embed"></iframe>
-                    -->
                     </div>
                 </div>
             </section>
@@ -141,7 +138,39 @@
                     </div>
                 </div>
             </section>
-            <section id="inscription">
+<<<<<<< HEAD
+            <section class="row" id="inscription">
+                <div class="span12" id="inscriptions">
+                    <h1>Inscripciones</h1>
+                </div>
+                <div class="span4">
+                    <p>La entrada al <b>PyCon Venezuela 2012</b> será libre. Sin embargo, para facilitar la entrega de los certificados te recomendamos registrarte en la página.</p>
+
+                    <p>Si deseas participar como ponente, próximamente estaremos proporcionando el formulario de inscripción para las ponencias, charlas, tutoriales o mesas de trabajo.</p>
+
+
+                </div>
+                <div class="span7">
+
+                    <ul class="nav nav-tabs">
+                        <li id="f-attendees" class="active">
+                            <a class="show-form-attendees">Asistentes</a>
+                        </li>
+                        <li id="f-speakers">
+                            <a class="show-form-speakers">Ponencias</a>
+                        </li>
+                    </ul>
+
+                    <div class="form-attendees">
+                        {% include '_attenders.html' %}
+                    </div>
+
+                    <div class="form-speakers">
+                        {% include '_attenders.html' %}
+                    </div>
+                    
+=======
+            <section>
                 <div class="row-fluid">
                     <div class="span12" id="inscriptions">
                         <h1>Inscripciones</h1>
@@ -149,19 +178,58 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span5">
-                        <p>La entrada al <b>PyCon Venezuela 2012</b> será libre. Sin embargo, para facilitar la entrega de los certificados te recomendamos registrarte en esta página.</p>
-                        <p>Si deseas dictar alguna ponencia o preparar algún tutorial y/o mesa de trabajo puedes suministrar dicha información iniciando sesión en la página previo registro.</p>
-                        <!--
-                        <p>Participar como <h2><a class="show-form-attenders">Asistente</a></h2></p>
-                        <p>Participar como <h3>asasasd</h3>sdfsdf<a class="show-form-speakers">Ponente</a></p>
-                    -->
+                        <p>La entrada al <b>PyCon Venezuela 2012</b> será libre. Sin embargo, para facilitar la entrega de los certificados te recomendamos registrarte en la página.</p>
+                    
+                        <p>Si deseas participar como ponente, próximamente estaremos proporcionando el formulario de inscripción para las ponencias, charlas, tutoriales o mesas de trabajo.</p>
                     </div>
-
-                    <div class="span7">
-                        <div class="form-attenders">
-                            {% include '_attenders.html' %}
+                    
+                    <div class="span7 well">
+                        {% if success_message %}
+                        <div class="alert alert-success">
+                            {{success_message}}
                         </div>
+                        <script type='text/javascript'>
+                            $.smoothScroll({
+                                scrollTarget: '#inscriptions'
+                              });
+                        </script>
+                        {% else %}
+                        {% if formUserProfile.errors %}
+                        <script type='text/javascript'>
+                            $.smoothScroll({
+                                scrollTarget: '#inscriptions'
+                              });
+                        </script>
+                        <ul style="list-style-type:none;">
+                        {% for error in formUserProfile.errors.values %}
+                        <li class="alert alert-error">{{error}}</li>
+                        {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <form id="form" class="form-horizontal" action="{% url create-profile %}" method="post">
+                            {% csrf_token %}
+                            <fieldset id="register">
+                                <legend>Registro de asistentes al PyCon Venezuela 2012</legend>
+                                <div class="errors"></div></br>
+                                {% for field in formUserProfile %}
+                                <div class="row-fluid">
+                                    <div class=" span7 control-group">
+                                        <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+                                        <div class="controls">
+                                            {{ field }}
+                                            <p class="help-inline">{{ field.help_text }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <div class="form-actions" align="right">
+                                    <button type="submit" class="btn btn-success btn-large">Registrarme</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                        {% endif %}
                     </div>
+>>>>>>> 61a59da0339245a32dc6200904640eed455226a9
                 </div>
                 
             </section>

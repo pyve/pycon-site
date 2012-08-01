@@ -1,5 +1,5 @@
 #coding=utf-8
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response as Render
 from django.contrib.auth.models import User
 from django.contrib.auth.views import logout as auth_logout
 from django.http import HttpResponse, HttpResponseRedirect
@@ -108,24 +108,24 @@ def speaker_registration(request):
         form = SpeakerRegistrationForm(request.POST)
         if form.is_valid():
             user = User()
-            user.first_name = form.cleaned_data['first_name']
-            user.last_name = form.cleaned_data['last_name']
-            user.username = form.cleaned_data['email']
-            user.email = form.cleaned_data['email']
-            user.set_password(form.cleaned_data['password'])
+            user.first_name = form.cleaned_data['s_first_name']
+            user.last_name = form.cleaned_data['s_last_name']
+            user.username = form.cleaned_data['s_email']
+            user.email = form.cleaned_data['s_email']
+            user.set_password(form.cleaned_data['s_password'])
             user.save()
             up = UserProfile.objects.get(user=user)
-            up.country = form.cleaned_data['country']
-            if form.cleaned_data.has_key('state'):
-                up.state = form.cleaned_data['state']
-            up.about = form.cleaned_data['about']
+            up.country = form.cleaned_data['s_country']
+            if form.cleaned_data.has_key('s_state'):
+                up.state = form.cleaned_data['s_state']
+            up.about = form.cleaned_data['s_about']
             up.save()
             p = Presentation()
-            p.name = form.cleaned_data['presentation_name']
-            p.description = form.cleaned_data['presentation_description']
-            p.tutorial = form.cleaned_data['presentation_tutorial']
-            p.duration = form.cleaned_data['presentation_duration']
-            p.requirements = forms.cleaned_data['presentation_requirements']
+            p.name = form.cleaned_data['s_presentation_name']
+            p.description = form.cleaned_data['s_presentation_description']
+            p.tutorial = form.cleaned_data['s_presentation_tutorial']
+            p.duration = form.cleaned_data['s_presentation_duration']
+            p.requirements = forms.cleaned_data['s_presentation_requirements']
             p.save()
             p.speakers.add(user)
             p.save()
@@ -137,6 +137,10 @@ def speaker_registration(request):
 
 @login_required(login_url=settings.LOGIN_URL)
 def profiles_myprofile(request):
-    p = get404(UserProfile, user=request.user)
-    context = {'data': p}
-    return Render('/profiles/myprofile.html', RequestContext(request, context))
+    from cms.forms import PresentationForm
+
+    ps = request.user.presentation_set.all()
+    context = {'data': ps}
+    #return HttpResponse(simplejson.dumps(context))
+    context = {'formSpeakerRegistration': PresentationForm(), 'ps': ps}
+    return Render('profile.html', RequestContext(request, context))

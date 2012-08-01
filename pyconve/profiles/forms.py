@@ -7,23 +7,14 @@ from profiles.models import *
 
 
 class UserProfileForm(forms.Form):
-    first_name = forms.CharField(label="Nombres",max_length=30, widget=widgets.TextInput(attrs={
-        #'required': 'required'
-        }))
-    last_name = forms.CharField(label="Apellidos",max_length=30, widget=widgets.TextInput(attrs={
-        #'required': 'required'
-        }))
-    email = forms.EmailField(label="Correo", widget=widgets.TextInput(attrs={
-        #'type': 'email'
-        }))
+    first_name = forms.CharField(label="Nombres",max_length=30)
+    last_name = forms.CharField(label="Apellidos",max_length=30)
+    email = forms.EmailField(label="Correo")
+    about = forms.CharField(label='Sobre mi', widget=forms.Textarea)
     country = forms.ModelChoiceField(label="País", queryset=Country.objects.all())
     state = forms.ModelChoiceField(label="Estado", queryset=State.objects.all(), required=False)
-    password = forms.CharField(label="Contraseña", required=True, widget=forms.PasswordInput(attrs={
-        #'required': 'required'
-        }))
-    confirm_password = forms.CharField(label="Confirmar Contraseña", required=True, widget=forms.PasswordInput(attrs={
-        #'required': 'required'
-        }))
+    password = forms.CharField(label="Contraseña", required=True, widget=forms.PasswordInput)
+    confirm_password = forms.CharField(label="Confirmar Contraseña", required=True, widget=forms.PasswordInput)
 
     def clean_password(self):
         
@@ -39,33 +30,33 @@ class UserProfileForm(forms.Form):
 
 
 class SpeakerRegistrationForm(forms.Form):
-    first_name = forms.CharField(max_length=30)
-    last_name = forms.CharField(max_length=30)
-    email = forms.EmailField()
-    country = forms.ModelChoiceField(queryset=Country.objects.all())
-    state = forms.ModelChoiceField(queryset=State.objects.all())
-    about = forms.CharField(widget=forms.Textarea)
-    password = forms.CharField(required=True, widget=forms.PasswordInput)
-    confirm_password = forms.CharField(required=True, widget=forms.PasswordInput)
-    presentation_name = forms.CharField(max_length=128)
-    presentation_description = forms.CharField(widget=forms.Textarea)
-    presentation_tutorial = forms.BooleanField()
-    presentation_duration = forms.IntegerField()
-    presentation_requirements = forms.CharField(widget=forms.Textarea)
+    s_first_name = forms.CharField(label="Nombres", max_length=30)
+    s_last_name = forms.CharField(label="Apellidos", max_length=30)
+    s_email = forms.EmailField(label='Correo')
+    s_country = forms.ModelChoiceField(label='País', queryset=Country.objects.all())
+    s_state = forms.ModelChoiceField(label='Estado', queryset=State.objects.all())
+    s_about = forms.CharField(label='Acerca de mí', widget=forms.Textarea)
+    s_password = forms.CharField(label='Contraseña', required=True, widget=forms.PasswordInput)
+    s_confirm_password = forms.CharField(label='Confirmar Contraseña', required=True, widget=forms.PasswordInput)
+    s_presentation_name = forms.CharField(label='Nombre de la presentación', max_length=128)
+    s_presentation_description = forms.CharField(label='Descripción', widget=forms.Textarea)
+    s_presentation_tutorial = forms.BooleanField(label='Tutorial/Mesa de Trabajo')
+    s_presentation_duration = forms.IntegerField(label='Duranción (minutos)')
+    s_presentation_requirements = forms.CharField(label='Requerimientos adicionales', widget=forms.Textarea)
 
     def clean_password(self):
         
-        if self.data['password'] != self.data['confirm_password']:
+        if self.data['password'] != self.data['s_confirm_password']:
             raise forms.ValidationError('Las contraseñas ingresadas no coinciden. Por favor verifique.')
 
-        return self.cleaned_data['password']
+        return self.cleaned_data['s_password']
 
     def clean_email(self):
-        if User.objects.filter(email=self.data['email']):
+        if User.objects.filter(email=self.data['s_email']):
             raise forms.ValidationError('Este email ya se encuentra registrado. Por favor verifique.')
-        return self.data['email']
+        return self.data['s_email']
 
 
 class LoginForm(forms.Form):
     email = forms.EmailField()
-    password = forms.CharField(wiget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput)

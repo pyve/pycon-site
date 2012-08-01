@@ -1,0 +1,46 @@
+<div class="well">
+    {% if success_message %}
+    <div class="alert alert-success">
+        {{success_message}}
+    </div>
+    <script type='text/javascript'>
+        $.smoothScroll({
+            scrollTarget: '#inscriptions'
+          });
+    </script>
+    {% else %}
+    {% if formSpeakerRegistration.errors %}
+    <script type='text/javascript'>
+        $.smoothScroll({
+            scrollTarget: '#inscriptions'
+          });
+    </script>
+    <ul style="list-style-type:none;">
+    {% for error in formSpeakerRegistration.errors.values %}
+    <li class="alert alert-error">{{error}}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <form id="form-s" class="form-horizontal" action="{% url speaker-registration %}" method="post">
+        {% csrf_token %}
+        <fieldset id="register">
+            <legend>Registro de ponencias y mesas de trabajo  al PyCon Venezuela 2012</legend>
+            <div class="errors"></div></br>
+            {% for field in formSpeakerRegistration %}
+            <div class="row-fluid">
+                <div class=" span7 control-group">
+                    <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+                    <div class="controls">
+                        {{ field }}
+                        <p class="help-inline">{{ field.help_text }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="form-actions" align="right">
+                <button type="submit" class="btn btn-success btn-large">Registrarme</button>
+            </div>
+        </fieldset>
+    </form>
+    {% endif %}
+</div>
