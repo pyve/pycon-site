@@ -47,28 +47,28 @@ var PROFILE = {
         }
 
         var _checkInputText = function (idInputText){
-            $('#id_duration').on("keydown"), (function(e){
-                if(e.keyCode < 48 || w.keyCode > 57){
-                    return false;
-                }
-            });
-            $(idInputText).on("keyup", (function(){
+            $(idInputText).on("blur", (function(){
                 if ($(idInputText).val() == "") {
-                    $(idInputText).parent().parent().parent().find('.span4').hide();
-                    $(idInputText).parent().parent().after('<div class="span4 alert alert-error"> Campo obligatorio </div>');
+                    $(idInputText).parent().parent().parent().find('.message').hide();
+                    $(idInputText).parent().parent().parent().find('.message').html('<p class="alert alert-error"> Campo obligatorio </p>');
+                    $(idInputText).parent().parent().parent().find('.message').show();
                 }
-                else {
-                    $(idInputText).parent().parent().parent().find('.span4').hide();
+                if ((idInputText) == '#id_email'){
+                    if ($(idInputText).val().indexOf('@', 0) == -1 || $(idInputText).val().indexOf('.', 0) == -1) {
+                        $(idInputText).parent().parent().parent().find('.message').hide();
+                        $(idInputText).parent().parent().parent().find('.message').html('<p class="alert alert-error"> No es un correo </p>');
+                        $(idInputText).parent().parent().parent().find('.message').show();
+                        
+                    }
                 }
                 _countError();
             }));
-            $(idInputText).on("keydow", (function(){
+            $(idInputText).on("keydown", (function(){
                 if ($(idInputText).val().length > 0) {
-                   $(idInputText).parent().parent().parent().find('.span4').hide();
+                   $(idInputText).parent().parent().parent().find('.message').hide();
                 }
             }));
-            
-        }      
+        }     
 
         var idInputTextsSpeakers = [
             "#id_name",
@@ -101,7 +101,6 @@ var PROFILE = {
 
     deletePresentation: function (presentation){
         presentation.parent().remove();
-        //$('#formulario').load(presentation.data().url);
     }
 }
 

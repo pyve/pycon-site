@@ -11,7 +11,7 @@
 {% endfor %}
 </ul>
 {% endif %}
-<div id='formulario'>
+<div id='formulario' class="form-profile">
     {% if presentation_id %}
     <form id="form" class="form-vertical" action="{% url presentation-edit presentation_id=presentation_id %}" method="post">
     {% else %}
@@ -26,15 +26,27 @@
             {% endif %}
             <div class="errors"></div></br>
             {% for field in formSpeakerRegistration %}
-            <div class="row-fluid">
-                <div class=" span8 control-group">
-                    <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
-                    <div class="controls">
-                        {{ field }}
-                        <p class="help-inline">{{ field.help_text }}</p>
+               
+                    <div class="row-fluid">
+                        <div class="span12 control-group">
+                        {% if field.name == "tutorial" %}
+                            <div class="controls">
+                                {{ field }} Es un tutorial
+                                <p class="help-inline">{{ field.help_text }}</p>
+                            </div>
+                        {% else%}
+                        <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+                        <div class="controls">
+                            {{ field }}
+                            {% if field.name == "duration" %} min {% endif %}
+                            <p class="help-inline">{{ field.help_text }}</p>
+                            <div class="message" style="visible:none"></div>
+                        </div>
+                        {% endif %}
+                    
+                        </div>
                     </div>
-                </div>
-            </div>
+              
             {% endfor %}
             <div class="form-actions" align="right">
                 <button type="submit" class="btn btn-success btn-large">Guardar</button>
