@@ -1,5 +1,5 @@
 #coding=utf-8
-from django.shortcuts import Render as Render
+from django.shortcuts import render_to_response as Render
 from django.contrib.auth.models import User
 from django.contrib.auth.views import logout as auth_logout
 from django.http import HttpResponse, HttpResponseRedirect
