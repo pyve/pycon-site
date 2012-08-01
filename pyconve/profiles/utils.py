@@ -3,6 +3,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 from django.template import loader
 from django.conf import settings
+from django.core.urlresolvers import reverse
 import hashlib
 import base64
 import random
@@ -15,7 +16,9 @@ def send_confirmation_email(user):
     subject = "Confirma tu registro para el PyConVE-2012"
     from_email = settings.DEFAULT_FROM_EMAIL
     to = user.email
-    html_content = loader.render_to_string('profiles/email_confirmation.html', {'site': settings.SITE_NAME, 'user': user})
+    profile = RegistrationProfile.objects.get(user=user)
+    theurl = '/profiles/confirm/%s' % profile.encoded 
+    html_content = loader.render_to_string('profiles/email_confirmation.html', {'site': settings.SITE_NAME, 'user': user, 'theurl': theurl})
     txt_content = strip_tags(html_content)
     msg = EmailMultiAlternatives(subject, txt_content, from_email, [to])
     msg.attach_alternative(html_content, 'text/html')

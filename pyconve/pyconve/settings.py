@@ -1,5 +1,6 @@
 # Django settings for pyconve project.
 import os
+from django.core.urlresolvers import reverse
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -13,9 +14,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(os.path.dirname(__file__), 'data.db'),                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'NAME': 'warupeco_pycon2012',                      # Or path to database file if using sqlite3.
+        'USER': 'warupeco_pycon',                      # Not used with sqlite3.
+        'PASSWORD': 'J$N[{?#m4w8h',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -49,7 +50,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media')
+MEDIA_ROOT = '/home/warupeco/public_html/pyconve/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -60,7 +61,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
+STATIC_ROOT = '/home/warupeco/public_html/pyconve/static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -128,6 +129,7 @@ INSTALLED_APPS = (
 )
 
 LOGIN_URL = '/profiles/login'
+LOGIN_REDIRECT_URL = reverse('my-profile')#'/profiles/me'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -165,4 +167,4 @@ DEFAULT_FROM_EMAIL = 'no-reply@zava.com.ve'
 EMAIL_HOST_USER = 'no-reply@zava.com.ve'
 EMAIL_HOST_PASSWORD = '%8X5DTW#22o}'
 
-SITE_NAME = '127.0.0.1:8000'
+SITE_NAME = 'http://pyconve.com'

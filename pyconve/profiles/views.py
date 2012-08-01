@@ -1,11 +1,13 @@
 #coding=utf-8
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response as Render
 from django.contrib.auth.models import User
 from django.contrib.auth.views import logout as auth_logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.utils import simplejson
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from profiles.models import *
 from cms.models import Presentation
 import hashlib
@@ -18,7 +20,7 @@ def logout(request):
 
 def profile_success(request):
     context = {'success_message': 'El perfil ha sido creado correctamente. Por favor revise su correo para validar el registro.'}
-    return render_to_response('base.html',RequestContext(request, context))
+    return Render('base.html',RequestContext(request, context))
 
 def profile_create(request):
     """
@@ -46,9 +48,10 @@ def profile_create(request):
             return HttpResponseRedirect(reverse('success-profile'))
         else:
             context = {'formUserProfile': form}
-            return render_to_response('base.html',RequestContext(request, context))
+            return Render('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
 
+@login_required(login_url=settings.LOGIN_URL)
 def profile_edit(request):
     """
     GET: show profile edit form with current data
@@ -92,12 +95,12 @@ def profile_activate(request, encoded):
         if (not regprofile.user.is_active) and email == regprofile.user.email and token == regprofile.token:
             regprofile.user.is_active = True
             regprofile.user.save()
-            context = {'status_message': 'Perfil activate'}
-            return Render('profiles/profile_activate.html', RequestContext(request, context))
+            context = {'success_message': 'Perfil activado, ahora puede iniciar sesión con su correo electrónico'}
+            return Render('base.html', RequestContext(request, context))
     except:
         pass
-    context = {'status_message': 'Usuario ya activado o token inválido'}
-    return HttpResponse(status=403, content=simplejson.dumps(context))
+    context = {'error_message': 'Usuario ya activado o token inválido'}
+    return Render('base.html', RequestContext(request, context))
 
 def speaker_registration(request):
     if request.method == 'POST':
@@ -105,29 +108,40 @@ def speaker_registration(request):
         form = SpeakerRegistrationForm(request.POST)
         if form.is_valid():
             user = User()
-            user.first_name = form.cleaned_data['first_name']
-            user.last_name = form.cleaned_data['last_name']
-            user.username = form.cleaned_data['email']
-            user.email = form.cleaned_data['email']
-            user.set_password(form.cleaned_data['password'])
+            user.first_name = form.cleaned_data['s_first_name']
+            user.last_name = form.cleaned_data['s_last_name']
+            user.username = form.cleaned_data['s_email']
+            user.email = form.cleaned_data['s_email']
+            user.set_password(form.cleaned_data['s_password'])
             user.save()
             up = UserProfile.objects.get(user=user)
-            up.country = form.cleaned_data['country']
-            if form.cleaned_data.has_key('state'):
-                up.state = form.cleaned_data['state']
-            up.about = form.cleaned_data['about']
+            up.country = form.cleaned_data['s_country']
+            if form.cleaned_data.has_key('s_state'):
+                up.state = form.cleaned_data['s_state']
+            up.about = form.cleaned_data['s_about']
             up.save()
             p = Presentation()
-            p.name = form.cleaned_data['presentation_name']
-            p.description = form.cleaned_data['presentation_description']
-            p.tutorial = form.cleaned_data['presentation_tutorial']
-            p.duration = form.cleaned_data['presentation_duration']
-            p.requirements = forms.cleaned_data['presentation_requirements']
+            p.name = form.cleaned_data['s_presentation_name']
+            p.description = form.cleaned_data['s_presentation_description']
+            p.tutorial = form.cleaned_data['s_presentation_tutorial']
+            p.duration = form.cleaned_data['s_presentation_duration']
+            p.requirements = forms.cleaned_data['s_presentation_requirements']
             p.save()
             p.speakers.add(user)
             p.save()
             return HttpResponseRedirect(reverse('success-profile'))
         else:
             context = {'formUserProfile': form}
-            return render_to_response('base.html',RequestContext(request, context))
+            return Render('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
+
+
+@login_required(login_url=settings.LOGIN_URL)
+def profiles_myprofile(request):
+    from cms.forms import PresentationForm
+
+    ps = request.user.presentation_set.all()
+    context = {'data': ps}
+    #return HttpResponse(simplejson.dumps(context))
+    context = {'formSpeakerRegistration': PresentationForm(), 'ps': ps}
+    return Render('profile.html', RequestContext(request, context))

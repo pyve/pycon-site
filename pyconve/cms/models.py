@@ -19,11 +19,12 @@ class Presentation(models.Model):
     speakers = models.ManyToManyField(User)
     name = models.CharField(max_length=128)
     description = models.TextField()
-    tutorial = models.BooleanField(default=False)
+    requirements = models.TextField(blank=True, null=True)
     duration = models.IntegerField(default=60)
+    tutorial = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)
     votes = models.IntegerField(editable=False, default=0)
-    requirements = models.TextField(blank=True, null=True)
+    
 
     def __str__(self):
         return self.name

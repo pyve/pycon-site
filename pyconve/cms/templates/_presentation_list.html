@@ -1,0 +1,28 @@
+<div id="presentationList">
+	<h2>Mis ponencias y/o tutorías</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Presentación</th>
+                <th>Descripción</th>
+                <th>Tutorial?</th>
+                <th>Tiempo</th>
+                <th>Requerimientos</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for elemento in ps %}
+                <tr data-action="editPresentation" data-url="{% url presentation-edit presentation_id=elemento.id %}">
+                    <td>{{elemento.name }}</td>
+                    <td>{{elemento.description }}</td>
+                    <td>{% if elemento.tutorial %}Si{% else %}No{% endif %}</td>
+                    <td>{{elemento.duration }} min</td>
+                    <td>{{elemento.requirements}}</td>
+                    <td data-action="deletePresentation"><a href="{% url presentation-delete presentation_id=elemento.id %}" ><i class="icon-remove" title="Eliminar"></i></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
