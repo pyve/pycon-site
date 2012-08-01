@@ -11,9 +11,14 @@ from cms.forms import PresentationForm
 
 def home(request):
     from profiles.forms import UserProfileForm
-    from profiles.forms import SpeakerRegistrationForm
-    context = {'formSpeakerRegistration': SpeakerRegistrationForm(), 'formUserProfile': UserProfileForm()}
+    context = {'formUserProfile': UserProfileForm()}
     return Render('base.html', RequestContext(request, context))
+
+def presentation_success(request):
+    from cms.forms import PresentationForm
+    ps = request.user.presentation_set.all()
+    context = {'success_message': 'La presentación ha sido creado correctamente.', 'ps':ps, 'formSpeakerRegistration': PresentationForm() }
+    return Render('profile.html',RequestContext(request, context))
 
 @login_required(login_url=settings.LOGIN_URL)
 def presentation_create(request):
@@ -36,7 +41,9 @@ def presentation_create(request):
             p.speakers.add(request.user)
             p.save()
             context = {'status_message': 'Charla creada'}
-            return HttpResponse(simplejson.dumps(context))
+            #return Render('profile.html',RequestContext(request, context))
+            return HttpResponseRedirect(reverse('success-presentation'))
+            #return HttpResponse(simplejson.dumps(context))
         else:
             context = {'status_message': form.errors}
             return HttpResponse(status=400, content=simplejson.dumps(context))
@@ -67,34 +74,53 @@ def presentation_edit(request, presentation_id):
     context = {}
     p = get404(Presentation, id=presentation_id)
     if request.method == 'POST':
+        form = PresentationForm(request.POST) 
         if form.is_valid():
-            if request.user in p.speakers.all():
-                p.speakers = form.cleaned_data['speakers']
-                p.name = form.cleaned_data['name']
-                p.description = form.cleaned_nada['description']
-                p.tutorial = form.cleaned_data['tutorial']
-                p.duration = form.cleaned_data['duration']
-                p.requirements = form.cleaned_data['requirements']
-                p.save()
-                context = {'status_message': 'Cambios realizados'}
-                return HttpResponse(simplejson.dumps(context))
-            else:
-                context = {'status_message': 'Debes ser uno de los ponentes para editar la charla'}
-                return HttpResponse(status=403, content=context)
+            #form.save()
+            p.name = form.cleaned_data['name']
+            p.description = form.cleaned_data['description']
+            p.tutorial = form.cleaned_data['tutorial']
+            p.duration = form.cleaned_data['duration']
+            p.requirements = form.cleaned_data['requirements']
+            p.save()
+            ps = request.user.presentation_set.all()
+            context = {'ps': ps, 'formSpeakerRegistration' : PresentationForm()}
+            return Render('profile.html',RequestContext(request, context))
+
+            # context = {'status_message': 'Cambios realizados'}
+            # return HttpResponse(simplejson.dumps(context))
+            # if request.user in p.speakers.all():
+            #     #p.speakers = form.cleaned_data['speakers']
+            #     p.name = form.cleaned_data['name']
+            #     p.description = form.cleaned_nada['description']
+            #     p.tutorial = form.cleaned_data['tutorial']
+            #     p.duration = form.cleaned_data['duration']
+            #     p.requirements = form.cleaned_data['requirements']
+            #     p.save()
+            #     context = {'status_message': 'Cambios realizados'}
+            #     return HttpResponse(simplejson.dumps(context))
+            # else:
+            #     context = {'status_message': 'Debes ser uno de los ponentes para editar la charla'}
+            #     return HttpResponse(status=403, content=context)
         else:
             context = {'status_message': form.errors}
             return HttpResponse(status=400, content=simplejson.dumps(context))
     else:
+        
+        elemento = Presentation.objects.get(id=int(presentation_id))
+        form = PresentationForm(instance=elemento)
+        context = { 'formSpeakerRegistration' : form, 'presentation_id':elemento.id}
         data = {
             'speakers': p.speakers.all(),
             'name': p.name,
-            'description': p.description(),
+            'description': p.description,
             'tutorial': p.tutorial,
             'duration': p.duration,
             'requirements': p.requirements,
         }
-        context = {'data': data}
-    return Render('cms/presentation_edit.html', RequestContext(request, context))
+        #ps = request.user.presentation_set.all()
+        #context = {'data': data}
+    return Render('_presentation.html', RequestContext(request, context))
 
 
 @login_required(login_url=settings.LOGIN_URL)

@@ -6,4 +6,5 @@ urlpatterns = patterns('cms.views',
     url(r'^presentation/view/(?P<presentation_id>\d+)/$', 'presentation_view', name='presentation-view'),
     url(r'^presentation/edit/(?P<presentation_id>\d+)/$', 'presentation_edit', name='presentation-edit'),
     url(r'^presentation/vote/(?P<presentation_id>\d+)/$', 'presentation_vote', name='presentation-vote'),
+    url(r'success/$', 'presentation_success', name='success-presentation'),
 )

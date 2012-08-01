@@ -10,6 +10,7 @@ class UserProfileForm(forms.Form):
     first_name = forms.CharField(label="Nombres",max_length=30)
     last_name = forms.CharField(label="Apellidos",max_length=30)
     email = forms.EmailField(label="Correo")
+    about = forms.CharField(label='Sobre mi', widget=forms.Textarea)
     country = forms.ModelChoiceField(label="País", queryset=Country.objects.all())
     state = forms.ModelChoiceField(label="Estado", queryset=State.objects.all(), required=False)
     password = forms.CharField(label="Contraseña", required=True, widget=forms.PasswordInput)
@@ -58,4 +59,4 @@ class SpeakerRegistrationForm(forms.Form):
 
 class LoginForm(forms.Form):
     email = forms.EmailField()
-    password = forms.CharField(wiget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput)

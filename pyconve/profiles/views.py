@@ -1,5 +1,5 @@
 #coding=utf-8
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response as Render
 from django.contrib.auth.models import User
 from django.contrib.auth.views import logout as auth_logout
 from django.http import HttpResponse, HttpResponseRedirect
@@ -137,6 +137,10 @@ def speaker_registration(request):
 
 @login_required(login_url=settings.LOGIN_URL)
 def profiles_myprofile(request):
-    p = get404(UserProfile, user=request.user)
-    context = {'data': p}
-    return Render('/profiles/myprofile.html', RequestContext(request, context))
+    from cms.forms import PresentationForm
+
+    ps = request.user.presentation_set.all()
+    context = {'data': ps}
+    #return HttpResponse(simplejson.dumps(context))
+    context = {'formSpeakerRegistration': PresentationForm(), 'ps': ps}
+    return Render('profile.html', RequestContext(request, context))

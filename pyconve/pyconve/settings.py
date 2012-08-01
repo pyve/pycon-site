@@ -1,5 +1,6 @@
 # Django settings for pyconve project.
 import os
+from django.core.urlresolvers import reverse
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -128,7 +129,7 @@ INSTALLED_APPS = (
 )
 
 LOGIN_URL = '/profiles/login'
-LOGIN_REDIRECT_URL = '/profiles/me'
+LOGIN_REDIRECT_URL = reverse('my-profile')#'/profiles/me'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

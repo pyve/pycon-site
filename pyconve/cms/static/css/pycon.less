@@ -54,6 +54,12 @@ section {
     .border-radius(4px);
 }
 
+#list {
+    tr:hover {
+        cursor: pointer;
+    }
+}
+
 #banner {
     .item {
         background-color: @black;
@@ -109,7 +115,7 @@ section {
             }
         }
     }
-    h2 {
+    h3 {
         margin: 0px;
         display: inline !important;
         a {
@@ -118,6 +124,25 @@ section {
                 color: @white;
                 text-decoration: none;
             }
+        }
+    }
+}
+
+#session {
+    .span12{
+        float: right;
+    }
+    .span4{
+        float: left;
+    }
+    .help-inline {
+        color : red;
+    }
+    p {
+        display: inline;
+        margin-top: 3px;
+        .alert {
+            margin-bottom: 0;
         }
     }
 }

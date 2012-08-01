@@ -125,35 +125,17 @@ var PYCON = {
             }));
         }
         
-
-        var idInputTextsAttenders = [
-            "#id_first_name",
-            "#id_last_name",
-            "#id_email",
-            "#id_password",
-            "#id_confirm_password"
-            ];
-
         var idInputTextsSpeakers = [
-            "#id_s_first_name",
-            "#id_s_last_name",
-            "#id_s_email",
-            "#id_s_password",
-            "#id_s_confirm_password",
-            "#id_s_about",
-            "#id_s_presentation_name",
-            "#id_s_presentation_description",
-            "#id_s_presentation_duration",
-            "#id_s_presentation_requirements"
+            "#id_name",
+            "#id_description",
+            "#id_duration",
+            "#id_requirements",
             ];
 
         for (var i = 0; i < idInputTextsAttenders.length ; i++) {
             _checkInputText(idInputTextsAttenders[i]);
         };
         
-        _checkInputTextEqual('#id_confirm_password', '#id_password');
-        _checkComboBox('#id_country');
-
         $('#register > div:eq(5)').hide();
         $('.form-actions > button').addClass('disabled');
         $('.form-actions > button').attr('disabled','disabled');
@@ -172,7 +154,7 @@ var PYCON = {
             return false;
             }
         });
-        
+
         $('#ra').roundabout({
             autoplay: true,
             autoplayDuration: 5000,

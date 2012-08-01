@@ -7,7 +7,6 @@
         <link href='http://fonts.googleapis.com/css?family=Advent+Pro:400,600' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/less-1.3.0.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery-1.7.2.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.smooth-scroll.js"></script>
     </head>
     <body>
         <header class="fixed-top" id="top">
@@ -22,12 +21,40 @@
                 <li><a href="">Cerrar Sesión</a></li-->
             </ul>
         </header>
-        <div class="row">
-            <div class="span4">
-                <p>Registros</p>
-            </div>
-            <div class="span8">
-                <p>Listado</p>
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span4">
+                    <div class="well">
+                        {% include '_presentation.html' %}
+                    </div>
+                </div>
+                <div id="list" class="span8">
+
+                    <h2>Mis ponencias y/o tutorias</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Presentación</th>
+                                <th>Descripción</th>
+                                <th>Es Tutorial</th>
+                                <th>Tiempo</th>
+                                <th>Requerimientos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for elemento in ps %}
+                                <tr data-action="editPresentation" data-url="{% url presentation-edit presentation_id=elemento.id %}">
+                                    <td>{{elemento.name }}</td>
+                                    <td>{{elemento.description }}</td>
+                                    <td>{{elemento.tutorial }}</td>
+                                    <td>{{elemento.duration }}</td>
+                                    <td>{{elemento.requirements}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <footer>
@@ -36,15 +63,6 @@
 
         
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/effects.core.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-carousel.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-transition.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-tooltip.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-popover.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.roundabout.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.event.drag-2.2.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.event.drop-2.2.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/jquery.roundabout-shapes.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/ra/s3Slider.js"></script>
-        <script type="text/javascript" src="{{ STATIC_URL }}js/pycon.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/profile.js"></script>
     </body>
 </html>
