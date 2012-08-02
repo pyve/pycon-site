@@ -82,7 +82,7 @@ var PYCON = {
         }
         var _checkInputTextEqual = function(idInputText1, idInputText2){
 
-            $(idInputText2).on("keyup", (function(){
+            /*$(idInputText2).on("keyup", (function(){
                 if ($(idInputText1).val().length > 0) {
                     if ($(idInputText2).val() != $(idInputText1).val()) {
                         //$(idInputText2).parent().parent().parent().find('.message').hide();
@@ -98,7 +98,24 @@ var PYCON = {
                     }
                     _countError();
                 }
-            }));
+            }));*/
+            $(idInputText2).delayKeyup(function () {
+                if ($(idInputText1).val().length > 0) {
+                    if ($(idInputText2).val() != $(idInputText1).val()) {
+                        //$(idInputText2).parent().parent().parent().find('.message').hide();
+                        if ($(idInputText2).parent().parent().parent().find('.message').is (':visible')) { var o =0; }
+                        else {
+                            $(idInputText2).parent().parent().parent().find('.message').html('<p class="alert alert-error">Las contraseñas no coinciden</p>');
+                            $(idInputText2).parent().parent().parent().find('.message').show();
+                        }
+                    }
+                    else {
+                        $(idInputText2).parent().parent().parent().find('.message').hide();
+                        $(idInputText1).parent().parent().parent().find('.message').hide();
+                    }
+                    _countError();
+                }
+            },400);
             $(idInputText1).on("keyup", (function(){
                 if ($(idInputText2).val().length > 0) {
                     if ($(idInputText2).val() != $(idInputText1).val()) {
