@@ -11,7 +11,6 @@ random.seed()
 from localization.models import *
 from profiles.models import *
 
-#TODO: definir plantilla de correo
 def send_confirmation_email(user):
     subject = "Confirma tu registro para el PyConVE-2012"
     from_email = settings.DEFAULT_FROM_EMAIL
