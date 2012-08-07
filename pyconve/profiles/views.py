@@ -92,7 +92,7 @@ def profile_activate(request, encoded):
     try:
         regprofile = RegistrationProfile.objects.get(encoded=encoded)
         email, token = base64.b64decode(encoded).split('|')
-        if (not regprofile.user.is_active) and email == regprofile.user.email and token == regprofile.token:
+        if email == regprofile.user.email and token == regprofile.token:
             regprofile.user.is_active = True
             regprofile.user.save()
             context = {'success_message': 'Perfil activado, ahora puede iniciar sesión con su correo electrónico'}
