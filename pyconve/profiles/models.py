@@ -36,13 +36,25 @@ class UserProfile(models.Model):
         return u'%s'%self.user
     
 
+class PasswordRecovery(models.Model):
+    user = models.OneToOneField(User)
+    token = models.CharField(max_length=32)
+    encoded = models.CharField(max_length=256, db_index=True)
+    created = models.DateTimeField(auto_now_add=True)
+    consumed = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return self.user
+
+    def __unicode__(self):
+        return u'%s' % self.user
+
 SPONSORSHIP_CHOICES = (
     ('p', 'Plata'),
     ('g', 'Gold'),
     ('b', 'Bronce'),
     ('pl', 'Platino'),
 )
-
 class Sponsor(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField()
