@@ -1,6 +1,6 @@
 #coding=utf-8
 from __future__ import unicode_literals
-from django.shortcuts import render_to_response as Render
+from django.shortcuts import render_to_response as Render, get_object_or_404 as get404
 from django.contrib.auth.models import User
 from django.contrib.auth.views import logout as auth_logout
 from django.http import HttpResponse, HttpResponseRedirect
@@ -149,14 +149,14 @@ def profile_password_forgot(request):
             except:
                 user = User.objects.get(email=email)
                 passwordrecovery_create(user)
-                return HttpResponse(status=200)
+            return HttpResponseRedirect('/')
         return HttpResponse(status=400, content=simplejson.dumps(form.errors))
-    context = {'passwordRecovery': PasswordRecoveryForm()}
-    return Render('modal.html', RequestContext(request, context))
+    return HttpResponseRedirect('/')
 
 def profile_password_reset(request, encoded):
+    from profiles.forms import PasswordResetForm
     pr = get404(PasswordRecovery, encoded=encoded)
-    if not pf.consumed:
+    if not pr.consumed:
         email, token = base64.b64decode(encoded).split('|')
         if email == pr.user.email and token == pr.token:
             if request.method == 'POST':
@@ -170,7 +170,7 @@ def profile_password_reset(request, encoded):
                     return HttpResponse(status=200)
                 return HttpResponse(status=400, content=simplejson.dumps(form.errors))
             context = {'form': PasswordResetForm()}
-            return Render('base.html', RequestContext(request, context))
+            return Render('password_reset.html', RequestContext(request, context))
     return HttpResponse(status=400, content='Token inválido o previamente consumido')
 
 @login_required(login_url=settings.LOGIN_URL)

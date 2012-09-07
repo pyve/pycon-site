@@ -10,8 +10,8 @@ from cms.models import *
 from cms.forms import PresentationForm
 
 def home(request):
-    from profiles.forms import UserProfileForm
-    context = {'formUserProfile': UserProfileForm()}
+    from profiles.forms import UserProfileForm, PasswordRecoveryForm
+    context = {'formUserProfile': UserProfileForm(), 'passwordRecoveryForm': PasswordRecoveryForm()}
     return Render('base.html', RequestContext(request, context))
 
 def presentation_success(request):

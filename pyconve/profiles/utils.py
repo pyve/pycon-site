@@ -44,7 +44,7 @@ def send_password_email(pwdrecover):
     from_email = settings.DEFAULT_FROM_EMAIL
     user = pwdrecover.user
     to = user.email
-    theurl = '/profiles/reset_password/%s' % pwdrecover.encoded 
+    theurl = '/profiles/password/reset/%s' % pwdrecover.encoded 
     html_content = loader.render_to_string('profiles/email_password.html', {'site': settings.SITE_NAME, 'user': user, 'theurl': theurl})
     txt_content = strip_tags(html_content)
     msg = EmailMultiAlternatives(subject, txt_content, from_email, [to])

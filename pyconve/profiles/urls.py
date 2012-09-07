@@ -9,6 +9,7 @@ urlpatterns = patterns('profiles.views',
     url(r'me/$', 'profiles_myprofile', name='my-profile'),
     url(r'logout/$', 'logout', name='logout'),
     url(r'password/recovery/$', 'profile_password_forgot', name='password-forgot'),
+#    url(r'password/recovery/success/$', 'password_recovery_success', name='password-recovery-success'),
     url(r'password/reset/(?P<encoded>.+)$', 'profile_password_reset', name='password-reset'),
 )
 

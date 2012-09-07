@@ -58,7 +58,7 @@ class SpeakerRegistrationForm(forms.Form):
 
 
 class PasswordRecoveryForm(forms.Form):
-    email = forms.EmailField(help_text="Se le enviará un correo con las instrucciones para cambiar su contraseña")
+    email = forms.EmailField()
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()
