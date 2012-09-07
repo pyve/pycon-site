@@ -20,7 +20,7 @@
                 <li><a href="#inscriptions">Inscripciones</a></li>
                 <li><a href="#sponsors">Patrocinantes</a></li>
                 <li><a href="{% url profiles-login %}">Iniciar Sesión</a></li>
-                
+                <li><a href="#myModal" data-toggle="modal" role="button">Recuperar Contraseña</a></li>
             </ul>
         </header>
         <div class="container">
@@ -178,7 +178,20 @@
             <center>PyCon Venezuela 2012.  Powered by <a href="http://zava.com.ve">ZAVA</a></center>
         </footer>
 
-        
+        <div class="modal hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Recuperar contraseña</h3>
+            </div>
+            <div class="modal-body">
+                <p>Acá el formulario</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+                <button class="btn btn-primary">Enviar</button>
+            </div>
+        </div>
+
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/effects.core.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-carousel.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-transition.js"></script>
