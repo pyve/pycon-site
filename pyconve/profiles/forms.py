@@ -57,6 +57,20 @@ class SpeakerRegistrationForm(forms.Form):
         return self.data['s_email']
 
 
+class PasswordRecoveryForm(forms.Form):
+    email = forms.EmailField(help_text="Se le enviará un correo con las instrucciones para cambiar su contraseña")
+
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField()
+    new_password = forms.CharField(widget=forms.PasswordInput)
+    new_password_confirm = forms.CharField(widget=forms.PasswordInput)
+
+    def clean_password(self):
+        if self.data['new_password'] != self.data['new_password_confirm']:
+            raise forms.ValidationError('Las contraseñas ingresadas no coinciden. Por favor verifique.')
+        return self.cleaned_data['new_password']
+
+
 class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)

@@ -38,3 +38,25 @@ def create_regprofile(user):
     reg = RegistrationProfile(user=user, token=token, encoded=encoded)
     reg.save()
     return reg
+
+def send_password_email(pwdrecover):
+    subject = "Recuperación de contraseña para PyConVE"
+    from_email = settings.DEFAULT_FROM_EMAIL
+    user = pwdrecover.user
+    to = user.email
+    theurl = '/profiles/reset_password/%s' % pwdrecover.encoded 
+    html_content = loader.render_to_string('profiles/email_password.html', {'site': settings.SITE_NAME, 'user': user, 'theurl': theurl})
+    txt_content = strip_tags(html_content)
+    msg = EmailMultiAlternatives(subject, txt_content, from_email, [to])
+    msg.attach_alternative(html_content, 'text/html')
+    msg.send()
+
+
+def passwordrecovery_create(user):
+    import datetime
+    token = hashlib.md5(str(random.random())).hexdigest()
+    encoded = base64.b64encode('%s|%s' % (user.email, token))
+    pr = PasswordRecovery(encoded=encoded, token=token, user=user)
+    pr.save()
+    send_password_email(pr)
+    return pr

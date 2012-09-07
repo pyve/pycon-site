@@ -1,4 +1,5 @@
 #coding=utf-8
+from __future__ import unicode_literals
 from django.shortcuts import render_to_response as Render
 from django.contrib.auth.models import User
 from django.contrib.auth.views import logout as auth_logout
@@ -135,6 +136,42 @@ def speaker_registration(request):
             return Render('base.html',RequestContext(request, context))
     return HttpResponseRedirect('/#inscriptions')
 
+def profile_password_forgot(request):
+    from profiles.forms import PasswordRecoveryForm
+    from profiles.utils import passwordrecovery_create
+    if request.method == 'POST':
+        form = PasswordRecoveryForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            try:
+                p = PasswordRecovery.objects.get(user__email=email)
+                user = p.user
+            except:
+                user = User.objects.get(email=email)
+                passwordrecovery_create(user)
+                return HttpResponse(status=200)
+        return HttpResponse(status=400, content=simplejson.dumps(form.errors))
+    context = {'passwordRecovery': PasswordRecoveryForm()}
+    return Render('modal.html', RequestContext(request, context))
+
+def profile_password_reset(request, encoded):
+    pr = get404(PasswordRecovery, encoded=encoded)
+    if not pf.consumed:
+        email, token = base64.b64decode(encoded).split('|')
+        if email == pr.user.email and token == pr.token:
+            if request.method == 'POST':
+                form = PasswordResetForm(request.POST)
+                if form.is_valid():
+                    password = form.cleaned_data['new_password']
+                    pr.user.set_password(password)
+                    pr.consumed = True
+                    pr.user.save()
+                    pr.delete()
+                    return HttpResponse(status=200)
+                return HttpResponse(status=400, content=simplejson.dumps(form.errors))
+            context = {'form': PasswordResetForm()}
+            return Render('base.html', RequestContext(request, context))
+    return HttpResponse(status=400, content='Token inválido o previamente consumido')
 
 @login_required(login_url=settings.LOGIN_URL)
 def profiles_myprofile(request):

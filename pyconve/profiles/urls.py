@@ -8,6 +8,8 @@ urlpatterns = patterns('profiles.views',
     url(r'speaker/register/$', 'speaker_registration', name='speaker-registration'),
     url(r'me/$', 'profiles_myprofile', name='my-profile'),
     url(r'logout/$', 'logout', name='logout'),
+    url(r'password/recovery/$', 'profile_password_forgot', name='password-forgot'),
+    url(r'password/reset/(?P<encoded>.+)$', 'profile_password_reset', name='password-reset'),
 )
 
 urlpatterns += patterns('',

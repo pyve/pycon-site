@@ -1,4 +1,5 @@
 #coding=utf-8
+from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 from localization.models import *
@@ -11,6 +12,8 @@ class RegistrationProfile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     consumed = models.DateTimeField(null=True, blank=True)
     
+    def __unicode__(self):
+        return '%s' % self.user.get_full_name()
 
 class UserProfile(models.Model):
     """
@@ -29,11 +32,8 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='avatars', blank=True, null=True)
     about = models.TextField(blank=True, null=True)
 
-    def __str__(self):
-        return self.user
-
     def __unicode__(self):
-        return u'%s'%self.user
+        return '%s'%self.user
     
 
 class PasswordRecovery(models.Model):
@@ -41,13 +41,10 @@ class PasswordRecovery(models.Model):
     token = models.CharField(max_length=32)
     encoded = models.CharField(max_length=256, db_index=True)
     created = models.DateTimeField(auto_now_add=True)
-    consumed = models.DateTimeField(blank=True, null=True)
-
-    def __str__(self):
-        return self.user
+    consumed = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return u'%s' % self.user
+        return '%s' % self.user.get_full_name()
 
 SPONSORSHIP_CHOICES = (
     ('p', 'Plata'),
@@ -62,10 +59,7 @@ class Sponsor(models.Model):
     website = models.URLField(max_length=256, null=True, blank=True)
     sponsorship_type = models.CharField(max_length=2, null=True, blank=True, choices=SPONSORSHIP_CHOICES)
 
-    def __str__(self):
-        return self.name
-
     def __unicode__(self):
-        return u'%s'%self.name
+        return '%s'%self.name
 
 import profiles.signals

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
+from django.core import mail
 from localization.models import *
 from profiles.models import *
 from cms.models import Presentation
@@ -43,7 +44,7 @@ class NewProfileTest(TestCase):
         self.assertEquals(response.status_code, 302)
         self.assertEquals(User.objects.count(), 1)
         self.assertEquals(UserProfile.objects.count(), 1)
-
+"""
     def test__speaker_registration(self):
         post_data = {
             'first_name': 'Israel',
@@ -70,3 +71,21 @@ class NewProfileTest(TestCase):
         self.assertEquals(Presentation.objects.count(), 1)
         self.assertEquals(User.objects.count(), 1)
         self.assertEquals(UserProfile.objects.count(), 1)
+"""
+
+class PasswordTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User(username="test", email="test@test.com", first_name="foo", last_name="bar")
+        self.user.save()
+
+    def test__password_forgot(self):
+        self.assertEquals(PasswordRecovery.objects.count(), 0)
+
+        post_data = {'email': self.user.email}
+        response = self.client.post(reverse('password-forgot'), post_data)
+
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(PasswordRecovery.objects.count(), 1)
+        self.assertEquals(PasswordRecovery.objects.get(id=1).user, self.user)
+        self.assertEquals(len(mail.outbox), 1)
