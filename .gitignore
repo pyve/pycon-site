@@ -1,4 +1,5 @@
-data.db
+*.log
+*.pot
 *.pyc
 *.swp
 /bin
