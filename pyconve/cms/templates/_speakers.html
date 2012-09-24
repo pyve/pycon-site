@@ -21,6 +21,8 @@
     {% endfor %}
     </ul>
     {% endif %}
+
+   
     <form id="form-s" class="form-horizontal" action="{% url speaker-registration %}" method="post">
         {% csrf_token %}
         <fieldset id="register">
