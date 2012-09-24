@@ -61,14 +61,13 @@ class PasswordRecoveryForm(forms.Form):
     email = forms.EmailField()
 
 class PasswordResetForm(forms.Form):
-    email = forms.EmailField()
     new_password = forms.CharField(widget=forms.PasswordInput)
     new_password_confirm = forms.CharField(widget=forms.PasswordInput)
 
     def clean_password(self):
-        if self.data['new_password'] != self.data['new_password_confirm']:
-            raise forms.ValidationError('Las contraseñas ingresadas no coinciden. Por favor verifique.')
-        return self.cleaned_data['new_password']
+        if self.data['new_password'] == self.data['new_password_confirm']:
+            return self.cleaned_data['new_password']
+        raise forms.ValidationError('Las contraseñas ingresadas no coinciden. Por favor verifique.')
 
 
 class LoginForm(forms.Form):

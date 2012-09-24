@@ -9,6 +9,7 @@ from django.template import RequestContext
 from django.utils import simplejson
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib import messages
 from profiles.models import *
 from cms.models import Presentation
 import hashlib
@@ -149,6 +150,7 @@ def profile_password_forgot(request):
             except:
                 user = User.objects.get(email=email)
                 passwordrecovery_create(user)
+            messages.success(request, 'Se ha enviado un correo electrónico con las instrucciones para cambiar su clave.')
             return HttpResponseRedirect('/')
         return HttpResponse(status=400, content=simplejson.dumps(form.errors))
     return HttpResponseRedirect('/')
@@ -167,11 +169,13 @@ def profile_password_reset(request, encoded):
                     pr.consumed = True
                     pr.user.save()
                     pr.delete()
-                    return HttpResponse(status=200)
+                    messages.success(request, 'Contraseña modificada satisfactoriamente')
+                    return HttpResponseRedirect('/')
                 return HttpResponse(status=400, content=simplejson.dumps(form.errors))
             context = {'form': PasswordResetForm()}
             return Render('password_reset.html', RequestContext(request, context))
-    return HttpResponse(status=400, content='Token inválido o previamente consumido')
+    mesasges.error(request, 'Token inválido o previamente consumido')
+    return HttpResponseRedirect('/')
 
 @login_required(login_url=settings.LOGIN_URL)
 def profiles_myprofile(request):
