@@ -1,4 +1,5 @@
 #coding=utf-8
+from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 from localization.models import Country, State
@@ -24,10 +25,6 @@ class Presentation(models.Model):
     tutorial = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)
     votes = models.IntegerField(editable=False, default=0)
-    
-
-    def __str__(self):
-        return self.name
 
     def __unicode__(self):
         return self.name
