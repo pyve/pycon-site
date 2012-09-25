@@ -28,6 +28,13 @@ class UserProfileForm(forms.Form):
             raise forms.ValidationError('Este email ya se encuentra registrado. Por favor verifique.')
         return self.data['email']
 
+class ProfileEditForm(forms.Form):
+    first_name = forms.CharField(label="Nombres",max_length=30)
+    last_name = forms.CharField(label="Apellidos",max_length=30)
+    about = forms.CharField(label='Sobre mi', widget=forms.Textarea)
+    country = forms.ModelChoiceField(label="País", queryset=Country.objects.all())
+    state = forms.ModelChoiceField(label="Estado", queryset=State.objects.all(), required=False)
+
 
 class SpeakerRegistrationForm(forms.Form):
     s_first_name = forms.CharField(label="Nombres", max_length=30)

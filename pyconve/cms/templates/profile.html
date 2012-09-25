@@ -18,9 +18,17 @@
                     <li><a href="#inscriptions">Inscripciones</a></li>
                     <li><a href="#sponsors">Patrocinantes</a></li>
                     -->
+                    <li><a href="{% url profile-edit %}">Editar perfil</a></li>
                     <li><a href="{% url logout %}">Cerrar Sesión</a></li-->
                 </ul>
         </header>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         <div class="container">
             <div class="row-fluid">
                 <div class="span4">

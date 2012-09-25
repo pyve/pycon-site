@@ -59,24 +59,22 @@ def profile_edit(request):
     GET: show profile edit form with current data
     POST: validate and store new data
     """
-    from profiles.forms import UserProfileForm
+    from profiles.forms import ProfileEditForm
     profile = get404(UserProfile, user=request.user)
     if request.method == 'POST':
-        form = UserProfileForm(request.POST)
+        form = ProfileEditForm(request.POST)
         if form.is_valid():
-            user.first_name = form.cleaned_data['user_name']
+            user = request.user
+            user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
-            user.email = form.cleaned_date['email']
-            user.username = form.cleaned_date['email']
-            user.set_password(form.cleaned_data['password'])
             up = UserProfile.objects.get(user=user)
             up.country = form.cleaned_data['country']
             up.state = form.cleaned_data['state']
             up.about = form.cleaned_data['about']
             user.save()
             up.save()
-            context = {'status_message': 'Perfil actualizado'}
-            return HttpResponse(simplejson.dumps(context))
+            messages.success(request, 'Perfil actualizado satisfactoriamente')
+            return HttpResponseRedirect(reverse('my-profile'))
         else:
             context = {'status_message': form.errors}
             return HttpResponse(status=400, content=simplejson.dumps(context))
@@ -85,10 +83,11 @@ def profile_edit(request):
         'last_name': request.user.last_name,
         'email': request.user.email,
         'country': profile.country,
+        'about': profile.about,
         'state': profile.state,
     }
-    context = {'data': data}
-    return Render('profiles/profile_create.html', RequestContext(request, context))
+    context = {'form': ProfileEditForm(data)}
+    return Render('profile_edit.html', RequestContext(request, context))
 
 def profile_activate(request, encoded):
     try:
