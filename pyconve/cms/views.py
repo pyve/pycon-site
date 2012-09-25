@@ -53,9 +53,8 @@ def presentation_create(request):
 
 
 def presentation_list(request):
-    presentations = Presentation.objects.all()
-    context = {'data': presentations}
-    return Render('cms/presentation_list.html', RequestContext(request, context))
+    context = {}
+    return Render('presentation_list.html', RequestContext(request, context))
 
 
 def presentation_view(request, presentation_id):

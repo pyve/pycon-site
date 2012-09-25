@@ -1,5 +1,26 @@
-{% for s in speakers %}
-    <p>{{s.speaker}}</p>
-    <p>{{s.name}}</p>
-    <p>{{s.avatar}}</p>
-{% endfor %}
+<div class="speakers">
+<ul>
+    {% for s in speakers %}
+    <li>
+        <div class="row-fluid">
+            <div class="span1">
+                <img src="{{s.avatar}}">
+            </div>
+            <div class="span3">
+                <p><b>{{s.speaker}}</b></p>
+                <span>{{s.about_speaker}}</span>
+            </div>
+            <div class="span2">
+                <p>{{s.title}}</p>
+            </div>
+            <div class="span1">
+                <p>{{s.tipo}}</p>
+            </div>
+            <div class="span5">
+                <p>{{s.description}}</p>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+</div>

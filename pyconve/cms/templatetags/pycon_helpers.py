@@ -1,6 +1,6 @@
 from django.template import Library
 from django.contrib.auth.forms import AuthenticationForm
-from profiles.models import Sponsor
+from profiles.models import Sponsor, UserProfile
 from cms.models import Presentation
 import hashlib
 import urllib
@@ -13,20 +13,24 @@ def show_sponsors():
 
 @register.inclusion_tag('_chats.html')
 def show_speakers():
-    chats = Presentation.objects.all()
+    chats = Presentation.objects.filter(approved=True)
     p_data = []
 
     for p in chats:
-        import pdb;pdb.set_trace()
         url = 'http://www.gravatar.com/avatar/%s'
-        speaker = p.speakers[0]
+        speaker = p.speakers.all()[0]
         email = speaker.email
-        name = p.speaker.get_full_name()
         avatar = url % hashlib.md5(email).hexdigest()
+        tipo = 'Charla'
+        if p.tutorial:
+            tipo = 'Tutorial'
         data = {
             'title': p.name,
-            'speaker': name,
+            'speaker': speaker.get_full_name(),
+            'about_speaker': UserProfile.objects.get(user=speaker).about,
             'avatar': avatar,
+            'description': p.description,
+            'tipo': tipo
         }
         p_data.append(data)
 
