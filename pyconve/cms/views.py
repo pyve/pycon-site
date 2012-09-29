@@ -128,7 +128,6 @@ def presentation_vote(request, presentation_id):
     context = {}
     if request.method == 'POST':
         p = get404(Presentation, id=presentation_id)
-        pdb.set_trace()
         p.votes += 1
         p.save()
         context = {'status_message': 'Voto agregado con éxito'}
