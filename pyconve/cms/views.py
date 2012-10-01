@@ -58,10 +58,20 @@ def presentation_list(request):
 
 
 def presentation_view(request, presentation_id):
+    import hashlib
+    from profiles.models import UserProfile
     p = get404(Presentation, id=presentation_id)
-    context = {'data': p}
-    return Render('cms/presentation_view.html', RequestContext(request, context))
-
+    s = p.speakers.all()[0]
+    profile = UserProfile.objects.get(user=s)
+    context = {
+        'avatar':'http://www.gravatar.com/avatar/%s'%hashlib.md5(s.email).hexdigest(),
+        'presentation': p,
+        'speaker': s.get_full_name(),
+        'about': profile.about,
+        'country': profile.country,
+        'state': profile.state,
+    }
+    return Render('presentation_detail.html', RequestContext(request, context))
 
 @login_required(login_url=settings.LOGIN_URL)
 def presentation_edit(request, presentation_id):

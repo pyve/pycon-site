@@ -1,5 +1,9 @@
+#coding=utf-8
+from __future__ import unicode_literals
 from django.template import Library
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.urlresolvers import reverse
+from django.template.defaultfilters import truncatewords
 from profiles.models import Sponsor, UserProfile
 from cms.models import Presentation
 import hashlib
@@ -25,12 +29,11 @@ def show_speakers():
         if p.tutorial:
             tipo = 'Tutorial'
         data = {
+            'detail': reverse('presentation-view', kwargs={'presentation_id': p.id}),
             'title': p.name,
             'speaker': speaker.get_full_name(),
-            'about_speaker': UserProfile.objects.get(user=speaker).about,
             'avatar': avatar,
-            'description': p.description,
-            'tipo': tipo
+            'description': truncatewords(p.description, 25),
         }
         p_data.append(data)
 
