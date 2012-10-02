@@ -109,13 +109,23 @@
                     </div>
                 </div>
                 <div class="row-fluid">
-                    <div class="span7">
+                    <div class="span12">
                         <h2>PyCon Venezuela</h2>
                         <p>Este año 2012, Venezuela tiene el privilegio de contar con el primer encuentro PyCon desarrollado por la comunidad Python de este país. Esta primera actividad ofcial tendrá como sede  las instalaciones de la <i>Universidad Católica Andres Bello</i> en Caracas, en el auditorio Hermano Lanz y será desarrollada los días 1, 2 y 3 de noviembre del presente año. En el encuentro participaran diferentes ponentes nacionales e internacionales que darán a conococer cuáles han sido sus experiencias, intercambiar conocimientos, innovaciones y detallar cuán poderoso puede ser el uso de este lenguaje de programación para el desarrollo de nuestros proyectos.</p>
                         <p>La entrada a este evento será gratuita y sólo deberás registrarte en esta página en la sección de <b><a href="#inscriptions">Inscripciones</a></b>. Si deseas compartir tus experiencias o deseas participar en la realización de una charla deberás ingresar la información referente en la misma sección.</p>
                     </div>
-                    <div class="span5">
-                        <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=&amp;aq=0&amp;oq=universidad+catolica+andres+bello&amp;sll=10.464655,-66.976229&amp;sspn=0.005455,0.009645&amp;t=m&amp;ie=UTF8&amp;ll=10.464475,-66.976519&amp;spn=0.01055,0.018239&amp;z=15&amp;output=embed"></iframe>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <h2>Cómo llegar a la UCAB</h2>
+                        <p><b>En Metro: </b>la Universidad Católica Andrés Bello está ubicada a la altura de la estación Antímano del Metro de Caracas. A la derecha de la estación se encuentran los torniquetes de acceso a la pasarela de la UCAB, recuerda que debes identificarte con el personal de vigilancia.</p>
+                        <p><b>En Autobús: </b>si te estás alojando en la zona de El Paraíso o Montalbán, puedes tomar un autobús en la Av. Páez o en la Av. Intercomunal de Montalbán (Av. Teherán). Debe decir en la parte frontal "SS Antímano" o "Metro Antímano", aunque siempre puedes preguntarle al conductor si pasa por la UCAB.</p>
+                    </div>
+                    <div class="span6">
+                        <img src="{{ STATIC_URL }}img/images/mapa_metro.jpg">
+                    </div>
+                    <!--<div class="span5">
+                        <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=&amp;q=&amp;aq=0&amp;oq=universidad+catolica+andres+bello&amp;sll=10.464655,-66.976229&amp;sspn=0.005455,0.009645&amp;t=m&amp;ie=UTF8&amp;ll=10.464475,-66.976519&amp;spn=0.01055,0.018239&amp;z=15&amp;output=embed"></iframe>-->
                     </div>
                 </div>
             </section>
@@ -135,8 +145,10 @@
                             <div class="ctext">confirmado</div>
                             <div class="pconf"></div>
                             <div class="ctext">por confirmar</div><br><br>
-                            <p>Nota: El detalle, biografía y fecha/hora asignada se completará a medida que los autores actualicenn y confirmen dicha información.</p>
-                            <p>Ver la lista completa <a href="{% url presentation-list %}">aquí</a></p>
+                                <div class="span4"></div>
+                                <a href="{% url presentation-list %}">
+                                    <button class="btn btn-large btn-primary">Ver todas</button>
+                                </a>
                         </div>
                     </div>
                     <div class="span5">
