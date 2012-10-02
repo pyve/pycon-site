@@ -185,3 +185,7 @@ def profiles_myprofile(request):
     #return HttpResponse(simplejson.dumps(context))
     context = {'formSpeakerRegistration': PresentationForm(), 'ps': ps}
     return Render('profile.html', RequestContext(request, context))
+
+def sponsor_list(request):
+    context = {}
+    return Render('sponsors.html', RequestContext(request, context))

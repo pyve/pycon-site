@@ -10,6 +10,7 @@ urlpatterns = patterns('profiles.views',
     url(r'logout/$', 'logout', name='logout'),
     url(r'password/recovery/$', 'profile_password_forgot', name='password-forgot'),
     url(r'password/reset/(?P<encoded>.+)$', 'profile_password_reset', name='password-reset'),
+    url(r'sponsors/$', 'sponsor_list', name='sponsor-list')
 )
 
 urlpatterns += patterns('',
