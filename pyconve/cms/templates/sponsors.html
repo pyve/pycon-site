@@ -13,10 +13,111 @@
             <h1><a href="http://www.pyconve.com">PyCon Venezuela</a></h1>
             <h3>es posible gracias a...<h3>
         </header>
+        {% if platino %}
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <h3>Patrocinantes Platino:</h3>
+            </div>
+            <div class="row-fluid">
+                <div class="span2"></div>
+                {% for p in platino %}
+                <div class="span4">
+                    <a href="{{ p.website }}" target="_blank">
+                        <img src="{{ p.logo.url }}" alt="{{ p.name }}" rel="popover" 
+                        data-content="{{ p.description }}" data-original-title="{{ p.name }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if oro %}
+            <div class="row-fluid">
+                <div class="span1">
+                <h3>Patrocinantes Oro:</h3>
+            </div>
+            <div class="row-fluid">
+                <div class="span2"></div>
+                {% for p in oro %}
+                <div class="span4">
+                    <a href="{{ p.website }}" target="_blank">
+                        <img src="{{ p.logo.url }}" alt="{{ p.name }}" rel="popover" 
+                        data-content="{{ p.description }}" data-original-title="{{ p.name }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if plata %}
+            <div class="row-fluid">
+                <div class="span1">
+                <h3>Patrocinantes Plata:</h3>
+            </div>
+            <div class="row-fluid">
+                <div class="span2"></div>
+                {% for p in plata %}
+                <div class="span4">
+                    <a href="{{ p.website }}" target="_blank">
+                        <img src="{{ p.logo.url }}" alt="{{ p.name }}" rel="popover" 
+                        data-content="{{ p.description }}" data-original-title="{{ p.name }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if bronce %}
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <h3>Patrocinantes Bronce:</h3>
+            </div>
+            <div class="row-fluid">
+                <div class="span2"></div>
+                {% for p in bronce %}
+                <div class="span4">
+                    <a href="{{ p.website }}" target="_blank">
+                        <img src="{{ p.logo.url }}" alt="{{ p.name }}" rel="popover" 
+                        data-content="{{ p.description }}" data-original-title="{{ p.name }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if organizador %}
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <h3>Organiza:</h3>
+            </div>
+            <div class="row-fluid">
+                <div class="span2"></div>
+                {% for p in organizador %}
+                <div class="span4">
+                    <a href="{{ p.website }}" target="_blank">
+                        <img src="{{ p.logo.url }}" alt="{{ p.name }}" rel="popover" 
+                        data-content="{{ p.description }}" data-original-title="{{ p.name }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if colaborador %}
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <h3>Colaboradores:</h3>
+            </div>
+            <div class="row-fluid">
+                <div class="span2"></div>
+                {% for p in colaborador %}
+                <div class="span4">
+                    
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-         <footer>
+        <footer>
             <center>PyCon Venezuela 2012.  Powered by <a href="http://zava.com.ve">ZAVA</a></center>
         </footer>
-        
+        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-tooltip.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/lib/bootstrap-popover.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/pycon.js"></script>
     </body>
 </html>
