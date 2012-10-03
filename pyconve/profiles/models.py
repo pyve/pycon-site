@@ -11,9 +11,10 @@ class RegistrationProfile(models.Model):
     encoded = models.CharField(max_length=256, db_index=True)
     created = models.DateTimeField(auto_now_add=True)
     consumed = models.DateTimeField(null=True, blank=True)
-    
+
     def __unicode__(self):
         return '%s' % self.user.get_full_name()
+
 
 class UserProfile(models.Model):
     """
@@ -31,6 +32,9 @@ class UserProfile(models.Model):
     available_votes = models.IntegerField(default=5)
     picture = models.ImageField(upload_to='avatars', blank=True, null=True)
     about = models.TextField(blank=True, null=True)
+    contributor = models.BooleanField(default=False)
+    twitter = models.TextField(max_length=16, blank=True, null=True)
+    pycon = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
         return '%s'%self.user
@@ -46,11 +50,13 @@ class PasswordRecovery(models.Model):
     def __unicode__(self):
         return '%s' % self.user.get_full_name()
 
+
 SPONSORSHIP_CHOICES = (
     ('p', 'Plata'),
     ('g', 'Gold'),
     ('b', 'Bronce'),
     ('pl', 'Platino'),
+    ('o', 'Organizador')
 )
 class Sponsor(models.Model):
     name = models.CharField(max_length=64)
