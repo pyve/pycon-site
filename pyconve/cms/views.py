@@ -41,9 +41,7 @@ def presentation_create(request):
             p.speakers.add(request.user)
             p.save()
             context = {'status_message': 'Charla creada'}
-            #return Render('profile.html',RequestContext(request, context))
             return HttpResponseRedirect(reverse('success-presentation'))
-            #return HttpResponse(simplejson.dumps(context))
         else:
             context = {'status_message': form.errors}
             return HttpResponse(status=400, content=simplejson.dumps(context))
@@ -85,7 +83,6 @@ def presentation_edit(request, presentation_id):
     if request.method == 'POST':
         form = PresentationForm(request.POST) 
         if form.is_valid():
-            #form.save()
             p.name = form.cleaned_data['name']
             p.description = form.cleaned_data['description']
             p.tutorial = form.cleaned_data['tutorial']
@@ -143,7 +140,6 @@ def presentation_vote(request, presentation_id):
         context = {'status_message': 'Voto agregado con éxito'}
         return HttpResponse(simplejson.dumps(context))
     return HttpResponse(status=405)
-
 
 @login_required(login_url=settings.LOGIN_URL)
 def my_presentations(request):
