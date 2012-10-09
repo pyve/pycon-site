@@ -34,11 +34,12 @@ class UserProfile(models.Model):
     about = models.TextField(blank=True, null=True)
     contributor = models.BooleanField(default=False)
     twitter = models.TextField(max_length=16, blank=True, null=True)
+    what = models.TextField(max_length=64, blank=True, null=True)
     pycon = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
         return '%s'%self.user
-    
+
 
 class PasswordRecovery(models.Model):
     user = models.OneToOneField(User)
