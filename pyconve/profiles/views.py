@@ -147,9 +147,12 @@ def profile_password_forgot(request):
                 p = PasswordRecovery.objects.get(user__email=email)
                 user = p.user
             except:
-                user = User.objects.get(email=email)
-                passwordrecovery_create(user)
-            messages.success(request, 'Se ha enviado un correo electrónico con las instrucciones para cambiar su clave.')
+                try:
+                    user = User.objects.get(email=email)
+                    passwordrecovery_create(user)
+                    messages.success(request, 'Se ha enviado un correo electrónico con las instrucciones para cambiar su clave.')
+                except:
+                    messages.error(request, 'El usuario no existe')
             return HttpResponseRedirect('/')
         return HttpResponse(status=400, content=simplejson.dumps(form.errors))
     return HttpResponseRedirect('/')
@@ -182,10 +185,17 @@ def profiles_myprofile(request):
 
     ps = request.user.presentation_set.all()
     context = {'data': ps}
-    #return HttpResponse(simplejson.dumps(context))
     context = {'formSpeakerRegistration': PresentationForm(), 'ps': ps}
     return Render('profile.html', RequestContext(request, context))
 
 def sponsor_list(request):
-    context = {}
+    sponsors = Sponsor.objects.all()
+    context = {
+        'platino': sponsors.filter(sponsorship_type='pl'),
+        'oro': sponsors.filter(sponsorship_type='g'),
+        'plata': sponsors.filter(sponsorship_type='p'),
+        'bronce': sponsors.filter(sponsorship_type='b'),
+        'organizador': sponsors.filter(sponsorship_type='o'),
+        'colaborador': UserProfile.objects.filter(contributor=True)
+    }
     return Render('sponsors.html', RequestContext(request, context))
