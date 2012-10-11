@@ -32,7 +32,7 @@
         {% endif %}
         {% if oro %}
             <div class="row-fluid">
-                <div class="span1">
+                <div class="span1"></div>
                 <h3>Patrocinantes Oro:</h3>
             </div>
             <div class="row-fluid">
@@ -103,13 +103,31 @@
                 <div class="span1"></div>
                 <h3>Colaboradores:</h3>
             </div>
-            <div class="row-fluid">
-                <div class="span2"></div>
-                {% for p in colaborador %}
-                <div class="span4">
-                    
-                </div>
-                {% endfor %}
+            <div class="speakers">
+                <ul>
+                    {% for c in colaborador %}
+                    <li>
+                        <div class="row-fluid">
+                            <div class="span1"></div>
+                            <div class="span1">
+                                <img src="{{c.avatar}}">
+                            </div>
+                            <div class="span2">
+                                <h4>{{c.name}}</h4>
+                            </div>
+                            <div class="span1">
+                                <span><a href="http://twitter.com/{{c.twitter}}">{{c.twitter}}</a></span>
+                            </div>
+                            <div class="span2">
+                                <span>{{c.what}}</span>
+                            </div>
+                            <div class="span5">
+                                <span>{{c.pycon}}</span>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         {% endif %}
 

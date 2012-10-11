@@ -189,13 +189,17 @@ def profiles_myprofile(request):
     return Render('profile.html', RequestContext(request, context))
 
 def sponsor_list(request):
+    from hashlib import md5
     sponsors = Sponsor.objects.all()
+    contributors = UserProfile.objects.filter(contributor=True)
+    contributors = [{'name': c.user.get_full_name(), 'avatar': 'http://www.gravatar.com/avatar/%s'%md5(c.user.email).hexdigest(), 'twitter': c.twitter, 'what': c.what, 'pycon': c.pycon} for c in contributors]
+    import pdb;pdb.set_trace()
     context = {
         'platino': sponsors.filter(sponsorship_type='pl'),
         'oro': sponsors.filter(sponsorship_type='g'),
         'plata': sponsors.filter(sponsorship_type='p'),
         'bronce': sponsors.filter(sponsorship_type='b'),
         'organizador': sponsors.filter(sponsorship_type='o'),
-        'colaborador': UserProfile.objects.filter(contributor=True)
+        'colaborador': contributors
     }
     return Render('sponsors.html', RequestContext(request, context))
