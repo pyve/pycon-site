@@ -193,7 +193,6 @@ def sponsor_list(request):
     sponsors = Sponsor.objects.all()
     contributors = UserProfile.objects.filter(contributor=True)
     contributors = [{'name': c.user.get_full_name(), 'avatar': 'http://www.gravatar.com/avatar/%s'%md5(c.user.email).hexdigest(), 'twitter': c.twitter, 'what': c.what, 'pycon': c.pycon} for c in contributors]
-    import pdb;pdb.set_trace()
     context = {
         'platino': sponsors.filter(sponsorship_type='pl'),
         'oro': sponsors.filter(sponsorship_type='g'),
