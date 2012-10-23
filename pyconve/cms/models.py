@@ -25,6 +25,8 @@ class Presentation(models.Model):
     tutorial = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)
     votes = models.IntegerField(editable=False, default=0)
+    schedule = models.CharField(max_length=16, blank=True, null=True)
+    room = models.CharField(max_length=128, blank=True, null=True)
 
     def __unicode__(self):
         return self.name
