@@ -18,9 +18,9 @@
             <div class="span5">
                 <p><h3>{{presentation.name}}</h3></p>
                 <span>{%if presentation.tutorial%}Tutorial{%else%}Charla{%endif%}, </span>
-                <span>{{presentation.room}}</span>
-                <span>{{presentation.schedule}}</span>
-                <span>{{presentation.duration}} minutos</span>
+                <span>{{presentation.room}}</span><br>
+                <span><b>Hora: </b>{{presentation.schedule}}</span><br>
+                <span><b>Duración: </b>{{presentation.duration}} minutos</span><br>
             </div>
             <div class="span1">
                 <img src="{{avatar}}"></img>
@@ -37,11 +37,14 @@
             <div class="span1"></div>
             
             <div class="span5">
-                <p><b>Descripción:</b></p>
+                <p style="margin-top: 10px;"><b>Descripción:</b></p>
                 <p>{{presentation.description}}</p>
                 <p><b>Requerimientos:</b></p>
                 <p>{{presentation.requirements}}</p>
-                <a href="{% url presentation-list %}">Volver al listado</a>
+                <span>
+                    <a href="{% url presentation-list %}">Volver al listado</a><br>
+                    <a href="http://dl.dropbox.com/u/3437671/cronopy.pdf" target="_blank"> Descargar cronograma</a>
+                </span>
             </div>
             <div class="span5">
                 <p>{{about}}</p>
